@@ -57,10 +57,10 @@ const Auth = {
     const users = this.getRegisteredUsers();
     
     // Check uniqueness
-    if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+    if (users.some(u => u.username && u.username.toLowerCase() === username.toLowerCase())) {
       return { success: false, message: 'Username is already taken' };
     }
-    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+    if (users.some(u => u.email && u.email.toLowerCase() === email.toLowerCase())) {
       return { success: false, message: 'Email address is already registered' };
     }
 
@@ -113,8 +113,8 @@ const Auth = {
   login(usernameOrEmail, password, rememberMe = false) {
     const users = this.getRegisteredUsers();
     const user = users.find(u => 
-      (u.username.toLowerCase() === usernameOrEmail.toLowerCase() || 
-       u.email.toLowerCase() === usernameOrEmail.toLowerCase()) && 
+      ((u.username && u.username.toLowerCase() === usernameOrEmail.toLowerCase()) || 
+       (u.email && u.email.toLowerCase() === usernameOrEmail.toLowerCase())) && 
       u.password === password
     );
 
@@ -178,7 +178,7 @@ const Auth = {
 
   resetPassword(email) {
     const users = this.getRegisteredUsers();
-    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    const user = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
     
     if (!user) {
       return { success: false, message: 'No account found with this email' };
@@ -209,7 +209,10 @@ const Auth = {
     if (!sessionUser) return;
 
     const users = this.getRegisteredUsers();
-    const user = users.find(u => u.username === sessionUser || u.email === sessionUser);
+    const user = users.find(u => 
+      (u.username && u.username.toLowerCase() === sessionUser.toLowerCase()) || 
+      (u.email && u.email.toLowerCase() === sessionUser.toLowerCase())
+    );
     if (!user) return;
 
     // Dynamically inject Profile sidebar elements if present

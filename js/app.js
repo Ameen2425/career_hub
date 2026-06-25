@@ -184,13 +184,16 @@ const App = {
     const sessionUser = sessionStorage.getItem('cla_session_user');
     if (!sessionUser) return null;
     const users = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.USERS) || '[]');
-    return users.find(u => u.username === sessionUser || u.email === sessionUser) || null;
+    return users.find(u => 
+      (u.username && u.username.toLowerCase() === sessionUser.toLowerCase()) || 
+      (u.email && u.email.toLowerCase() === sessionUser.toLowerCase())
+    ) || null;
   },
 
   saveActiveUser(user) {
     if (!user) return;
     const users = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.USERS) || '[]');
-    const idx = users.findIndex(u => u.username === user.username);
+    const idx = users.findIndex(u => u.username && u.username.toLowerCase() === user.username.toLowerCase());
     if (idx !== -1) {
       users[idx] = user;
       localStorage.setItem(this.STORAGE_KEYS.USERS, JSON.stringify(users));
