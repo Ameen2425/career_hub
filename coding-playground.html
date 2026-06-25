@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Split screen interactive HTML, CSS, and JS compiler playground with preset app templates.">
+  <title>Coding Playground | CareerLaunch Hub</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/playground.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Coding Playground...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch Hub</span>
+      </a>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-header">Core</div>
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        
+        <div class="sidebar-section-header">Practice</div>
+        <a href="interview-simulator.html" class="sidebar-link"><span class="sidebar-link-icon">🤖</span> Interview Simulator</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="coding-playground.html" class="sidebar-link"><span class="sidebar-link-icon">💻</span> Coding Playground</a>
+        
+        <div class="sidebar-section-header">Planning</div>
+        <a href="roadmaps.html" class="sidebar-link"><span class="sidebar-link-icon">🗺️</span> Roadmaps</a>
+        <a href="study-planner.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span> Study Planner</a>
+        <a href="notes.html" class="sidebar-link"><span class="sidebar-link-icon">📝</span> Personal Notes</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        
+        <div class="sidebar-section-header">System</div>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Coding Playground</h1>
+            <p>Write, compile, and debug HTML, CSS, and JS with real-time feedback</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <!-- Control Bar -->
+          <div class="glass-card playground-controls-bar">
+            <div class="controls-left">
+              <label for="template-select" style="font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary);">Load Preset:</label>
+              <select id="template-select" class="template-dropdown">
+                <option value="" disabled selected>Select Template...</option>
+                <option value="counter">Counter Application</option>
+                <option value="clock">Digital Clock</option>
+                <option value="card">Sleek Product Card</option>
+              </select>
+            </div>
+            <div class="controls-right">
+              <button class="btn btn-secondary btn-sm" id="clear-btn">Clear All</button>
+              <button class="btn btn-secondary btn-sm" id="copy-btn">Copy Code</button>
+              <button class="btn btn-secondary btn-sm" id="download-btn">Download HTML</button>
+              <button class="btn btn-primary btn-sm" id="run-btn">Run Code ➔</button>
+            </div>
+          </div>
+
+          <!-- Main Layout -->
+          <div class="playground-grid">
+            <!-- Left Editors Area -->
+            <div class="glass-card editor-panel">
+              <div class="editor-tabs-header">
+                <button class="editor-tab-btn active" data-tab="html">HTML</button>
+                <button class="editor-tab-btn" data-tab="css">CSS</button>
+                <button class="editor-tab-btn" data-tab="js">JavaScript</button>
+              </div>
+              
+              <div class="editor-textarea-container active" id="html-container">
+                <textarea class="editor-textarea" id="html-code" spellcheck="false" placeholder="<!-- Write your HTML structure here -->"></textarea>
+              </div>
+              <div class="editor-textarea-container" id="css-container">
+                <textarea class="editor-textarea" id="css-code" spellcheck="false" placeholder="/* Write your CSS rules here */"></textarea>
+              </div>
+              <div class="editor-textarea-container" id="js-container">
+                <textarea class="editor-textarea" id="js-code" spellcheck="false" placeholder="// Write your JavaScript logic here"></textarea>
+              </div>
+            </div>
+
+            <!-- Right Preview Area -->
+            <div class="glass-card preview-panel">
+              <div class="preview-header">
+                <div style="display: flex; align-items: center;">
+                  <span class="preview-dot" id="preview-status-dot"></span>
+                  <span style="font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;">Live Output</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Sandboxed Environment</div>
+              </div>
+              <iframe class="preview-iframe" id="preview-iframe" title="Playground Preview Code Pane"></iframe>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/playground.js"></script>
+</body>
+</html>

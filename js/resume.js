@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Resume Analyzer UI (Frontend Simulation)
+ * CareerLaunch Hub - Resume Analyzer UI (Frontend Simulation)
  */
 
 const ResumePage = {

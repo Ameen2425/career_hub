@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Interview Preparation Hub
+ * CareerLaunch Hub - Interview Preparation Hub
  * Question bank, search, filters, favorites
  */
 

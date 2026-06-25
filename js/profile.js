@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Profile and Achievements Page Module
+ * CareerLaunch Hub - Profile and Achievements Page Module
  */
 
 const ProfilePage = {
@@ -72,7 +72,9 @@ const ProfilePage = {
     const badgeIds = [
       'badge_first_login', 'badge_7_streak', 'badge_30_streak', 
       'badge_first_quiz', 'badge_100_questions', 'badge_python_master', 
-      'badge_javascript_master', 'badge_sql_master', 'badge_resume_expert'
+      'badge_javascript_master', 'badge_sql_master', 'badge_resume_expert',
+      'badge_python_roadmap', 'badge_frontend_roadmap', 'badge_backend_roadmap',
+      'badge_js_roadmap', 'badge_sql_roadmap'
     ];
 
     badgeIds.forEach(id => {

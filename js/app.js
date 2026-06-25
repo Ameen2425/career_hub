@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Core Application Module
+ * CareerLaunch Hub - Core Application Module
  * Theme, navigation, storage, toasts, and shared utilities
  */
 
@@ -214,7 +214,11 @@ const App = {
         quizzesAttempted: 0,
         quizScores: [],
         studyTime: 0,
-        favoritesAdded: 0
+        favoritesAdded: 0,
+        notesCreated: 0,
+        tasksCompleted: 0,
+        interviewsSimulated: 0,
+        codeRuns: 0
       };
     }
     
@@ -230,6 +234,14 @@ const App = {
       }
     } else if (eventType === 'favoriteAdded') {
       log.favoritesAdded += 1;
+    } else if (eventType === 'noteCreated') {
+      log.notesCreated = (log.notesCreated || 0) + 1;
+    } else if (eventType === 'taskCompleted') {
+      log.tasksCompleted = (log.tasksCompleted || 0) + 1;
+    } else if (eventType === 'interviewCompleted') {
+      log.interviewsSimulated = (log.interviewsSimulated || 0) + 1;
+    } else if (eventType === 'codeRun') {
+      log.codeRuns = (log.codeRuns || 0) + 1;
     }
     
     this.saveActiveUser(user);
@@ -368,6 +380,72 @@ const App = {
     this.saveActiveUser(user);
   },
 
+  // Notes System Storage
+  getNotes() {
+    const user = this.getActiveUser();
+    return user ? (user.notes || []) : [];
+  },
+
+  saveNotes(notes) {
+    const user = this.getActiveUser();
+    if (!user) return;
+    user.notes = notes;
+    this.saveActiveUser(user);
+  },
+
+  // Roadmap Progress Storage
+  getRoadmapProgress() {
+    const user = this.getActiveUser();
+    return user ? (user.roadmapProgress || {}) : {};
+  },
+
+  saveRoadmapProgress(progress) {
+    const user = this.getActiveUser();
+    if (!user) return;
+    user.roadmapProgress = progress;
+    this.saveActiveUser(user);
+  },
+
+  // Study Planner Storage
+  getPlannerTasks() {
+    const user = this.getActiveUser();
+    return user ? (user.plannerTasks || []) : [];
+  },
+
+  savePlannerTasks(tasks) {
+    const user = this.getActiveUser();
+    if (!user) return;
+    user.plannerTasks = tasks;
+    this.saveActiveUser(user);
+  },
+
+  // Interview Simulator Storage
+  getInterviewHistory() {
+    const user = this.getActiveUser();
+    return user ? (user.interviewHistory || []) : [];
+  },
+
+  saveInterviewResult(result) {
+    const user = this.getActiveUser();
+    if (!user) return;
+    if (!user.interviewHistory) user.interviewHistory = [];
+    user.interviewHistory.unshift(result);
+    this.saveActiveUser(user);
+  },
+
+  // Coding Playground Storage
+  getPlaygroundDrafts() {
+    const user = this.getActiveUser();
+    return user ? (user.playgroundDrafts || { html: '', css: '', js: '' }) : { html: '', css: '', js: '' };
+  },
+
+  savePlaygroundDrafts(drafts) {
+    const user = this.getActiveUser();
+    if (!user) return;
+    user.playgroundDrafts = drafts;
+    this.saveActiveUser(user);
+  },
+
   getDashboardStats() {
     const user = this.getActiveUser();
     if (!user) {
@@ -379,7 +457,12 @@ const App = {
         resumeScore: 0,
         learningProgress: 0,
         favoritesCount: 0,
-        streak: 0
+        streak: 0,
+        notesCount: 0,
+        goalCompletionRate: 0,
+        roadmapProgressPercent: 0,
+        playgroundRunsCount: 0,
+        interviewsSimulatedCount: 0
       };
     }
     
@@ -387,6 +470,37 @@ const App = {
     const resume = this.getResumeData();
     const uniqueIds = this.getPracticedQuestionIds();
     const learningProgress = Math.min(100, Math.round((uniqueIds.length / 62) * 100));
+
+    // Calculate Notes Count
+    const notesCount = (user.notes || []).length;
+
+    // Calculate Planner Task Completion Rate
+    const tasks = user.plannerTasks || [];
+    const completedTasks = tasks.filter(t => t.completed).length;
+    const goalCompletionRate = tasks.length > 0 ? Math.round((completedTasks / tasks.length) * 100) : 0;
+
+    // Calculate Roadmap Progress Percent
+    const roadmap = user.roadmapProgress || {};
+    let totalRoadmapItems = 0;
+    let checkedRoadmapItems = 0;
+    Object.values(roadmap).forEach(rMap => {
+      if (rMap && typeof rMap === 'object') {
+        Object.values(rMap).forEach(val => {
+          totalRoadmapItems++;
+          if (val === true) checkedRoadmapItems++;
+        });
+      }
+    });
+    const roadmapProgressPercent = totalRoadmapItems > 0 ? Math.round((checkedRoadmapItems / totalRoadmapItems) * 100) : 0;
+
+    // Calculate Playground runs count & Interview simulator count
+    let codeRuns = 0;
+    let interviewsSimulatedCount = (user.interviewHistory || []).length;
+    if (user.dailyAnalytics && user.dailyAnalytics.activityLogs) {
+      Object.values(user.dailyAnalytics.activityLogs).forEach(log => {
+        codeRuns += log.codeRuns || 0;
+      });
+    }
 
     return {
       questionsPracticed: user.stats.questionsPracticed || 0,
@@ -396,7 +510,12 @@ const App = {
       resumeScore: resume.score || 0,
       learningProgress,
       favoritesCount: this.getFavorites().length,
-      streak: user.dailyAnalytics ? user.dailyAnalytics.streak : 0
+      streak: user.dailyAnalytics ? user.dailyAnalytics.streak : 0,
+      notesCount,
+      goalCompletionRate,
+      roadmapProgressPercent,
+      playgroundRunsCount: codeRuns,
+      interviewsSimulatedCount
     };
   },
 
@@ -448,11 +567,11 @@ const App = {
   },
 
   async shareScore(score, total, percentage) {
-    const text = `I scored ${score}/${total} (${percentage}%) on CareerLaunch AI! 🚀 Can you beat my score?`;
+    const text = `I scored ${score}/${total} (${percentage}%) on CareerLaunch Hub! 🚀 Can you beat my score?`;
 
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'CareerLaunch AI Quiz Score', text });
+        await navigator.share({ title: 'CareerLaunch Hub Quiz Score', text });
         this.showToast('Score shared successfully!', 'success');
       } catch (err) {
         if (err.name !== 'AbortError') this.copyToClipboard(text);
@@ -515,10 +634,10 @@ const App = {
     return [
       { text: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
       { text: 'Success is not final, failure is not fatal: it is the courage to continue that counts.', author: 'Winston Churchill' },
-      { text: 'Your career is a marathon, not a sprint. Pace yourself and keep moving forward.', author: 'CareerLaunch AI' },
+      { text: 'Your career is a marathon, not a sprint. Pace yourself and keep moving forward.', author: 'CareerLaunch Hub' },
       { text: 'Opportunities don\'t happen. You create them.', author: 'Chris Grosser' },
       { text: 'The future belongs to those who believe in the beauty of their dreams.', author: 'Eleanor Roosevelt' },
-      { text: 'Every interview is practice for the one that changes everything.', author: 'CareerLaunch AI' },
+      { text: 'Every interview is practice for the one that changes everything.', author: 'CareerLaunch Hub' },
       { text: 'Don\'t watch the clock; do what it does. Keep going.', author: 'Sam Levenson' },
       { text: 'Believe you can and you\'re halfway there.', author: 'Theodore Roosevelt' }
     ];

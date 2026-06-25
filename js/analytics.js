@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Performance Analytics Module
+ * CareerLaunch Hub - Performance Analytics Module
  */
 
 const Analytics = {
@@ -42,7 +42,9 @@ const Analytics = {
       dates: [],
       studyTimeMinutes: [],
       questionsViewed: [],
-      quizzesAttempted: []
+      quizzesAttempted: [],
+      interviewsSimulated: [],
+      codeRuns: []
     };
 
     if (!user || !user.dailyAnalytics || !user.dailyAnalytics.activityLogs) {
@@ -54,6 +56,8 @@ const Analytics = {
         data.studyTimeMinutes.push(0);
         data.questionsViewed.push(0);
         data.quizzesAttempted.push(0);
+        data.interviewsSimulated.push(0);
+        data.codeRuns.push(0);
       }
       return data;
     }
@@ -69,13 +73,17 @@ const Analytics = {
       data.dates.push(dateLabel);
 
       if (logs[dateString]) {
-        data.studyTimeMinutes.push(Math.round(logs[dateString].studyTime / 60)); // Convert to minutes
+        data.studyTimeMinutes.push(Math.round((logs[dateString].studyTime || 0) / 60)); // Convert to minutes
         data.questionsViewed.push(logs[dateString].questionsViewed || 0);
         data.quizzesAttempted.push(logs[dateString].quizzesAttempted || 0);
+        data.interviewsSimulated.push(logs[dateString].interviewsSimulated || 0);
+        data.codeRuns.push(logs[dateString].codeRuns || 0);
       } else {
         data.studyTimeMinutes.push(0);
         data.questionsViewed.push(0);
         data.quizzesAttempted.push(0);
+        data.interviewsSimulated.push(0);
+        data.codeRuns.push(0);
       }
     }
 

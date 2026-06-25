@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart interactive mock interview simulator with HR, Python, JS, SQL, and Full Stack categories.">
+  <title>Mock Interview Simulator | CareerLaunch Hub</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/interview-simulator.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Interview Simulator...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch Hub</span>
+      </a>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-header">Core</div>
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        
+        <div class="sidebar-section-header">Practice</div>
+        <a href="interview-simulator.html" class="sidebar-link"><span class="sidebar-link-icon">🤖</span> Interview Simulator</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="coding-playground.html" class="sidebar-link"><span class="sidebar-link-icon">💻</span> Coding Playground</a>
+        
+        <div class="sidebar-section-header">Planning</div>
+        <a href="roadmaps.html" class="sidebar-link"><span class="sidebar-link-icon">🗺️</span> Roadmaps</a>
+        <a href="study-planner.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span> Study Planner</a>
+        <a href="notes.html" class="sidebar-link"><span class="sidebar-link-icon">📝</span> Personal Notes</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        
+        <div class="sidebar-section-header">System</div>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Mock Interview Simulator</h1>
+            <p>Mock conversational interviewer evaluating technical capability and communication</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:9999; width:100%; height:100%;"></canvas>
+          
+          <div class="simulator-container">
+            <!-- Left Config Sidebar -->
+            <div class="simulator-sidebar">
+              <div class="glass-card avatar-preview-card">
+                <div class="avatar-large" id="interviewer-avatar">👩‍💼</div>
+                <div class="avatar-status-dot"></div>
+                <h3 class="avatar-name" id="interviewer-name">Sarah Jenkins</h3>
+                <span class="avatar-title" id="interviewer-title">HR Recruiter</span>
+              </div>
+              
+              <div class="glass-card" style="padding: 20px;">
+                <h4 style="margin-bottom: 12px; font-size: 0.875rem; text-transform: uppercase; color: var(--text-secondary);">Select Domain</h4>
+                <div class="mode-selector-list">
+                  <button class="mode-btn active" data-mode="hr"><span class="mode-icon">👩‍💼</span> HR Interview</button>
+                  <button class="mode-btn" data-mode="python"><span class="mode-icon">🐍</span> Python Interview</button>
+                  <button class="mode-btn" data-mode="javascript"><span class="mode-icon">💻</span> JS Interview</button>
+                  <button class="mode-btn" data-mode="sql"><span class="mode-icon">🗄️</span> SQL Interview</button>
+                  <button class="mode-btn" data-mode="fullstack"><span class="mode-icon">🚀</span> Full Stack Interview</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Main Area -->
+            <div class="glass-card simulator-console" style="overflow: hidden; padding: 0;">
+              
+              <!-- Setup View -->
+              <div id="setup-panel" style="padding: 40px; text-align: center; margin: auto 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                <div style="font-size: 4rem; margin-bottom: 24px;">🤖</div>
+                <h2 style="margin-bottom: 12px;">Ready to Start Your Mock Interview?</h2>
+                <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 32px;">
+                  Test your skills in interactive chat sessions. The virtual interviewer will ask you five technical and communication questions and compile instant breakdown performance scores.
+                </p>
+                <button class="btn btn-primary" id="start-btn">Start Mock Session →</button>
+              </div>
+
+              <!-- Chat View -->
+              <div id="chat-panel" style="display: none; flex-direction: column; height: 100%;">
+                <div class="chat-messages-container" id="chat-box">
+                  <!-- Messages injected here -->
+                </div>
+                
+                <div class="chat-input-area">
+                  <div class="chat-input-wrapper">
+                    <textarea class="chat-textarea" id="user-response-input" placeholder="Type your detailed response here... (Press Enter to Send)"></textarea>
+                    <div class="chat-controls">
+                      <button class="btn btn-secondary" id="skip-btn" title="Skip Question">Skip</button>
+                      <button class="btn btn-danger" id="end-btn" title="End Session">End</button>
+                      <button class="btn btn-primary" id="send-btn">Send ➔</button>
+                    </div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);">
+                    <span id="char-count">0 characters</span>
+                    <span>Shift + Enter for new line</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Summary / Performance Feedback View -->
+              <div id="summary-panel" class="summary-container" style="display: none; padding: 40px; overflow-y: auto; height: 100%;">
+                <div class="summary-header">
+                  <span style="font-size: 3.5rem; display: block; margin-bottom: 12px;">🏆</span>
+                  <h2>Interview Performance Breakdown</h2>
+                  <p style="color: var(--text-secondary);">Here is how you performed in your simulated interview.</p>
+                </div>
+
+                <div class="summary-score-grid">
+                  <div class="glass-card score-radial-card">
+                    <div class="radial-percentage" id="tech-score-val">0%</div>
+                    <div class="radial-label">Technical Score</div>
+                  </div>
+                  <div class="glass-card score-radial-card">
+                    <div class="radial-percentage" id="comm-score-val">0%</div>
+                    <div class="radial-label">Communication</div>
+                  </div>
+                  <div class="glass-card score-radial-card">
+                    <div class="radial-percentage" id="conf-score-val">0%</div>
+                    <div class="radial-label">Confidence</div>
+                  </div>
+                </div>
+
+                <div class="glass-card feedback-details-card">
+                  <h3 style="font-size: 1.125rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 12px;">Detailed Feedback & Recommendations</h3>
+                  <ul class="feedback-list" id="feedback-tips-list">
+                    <!-- Feedback tips dynamic -->
+                  </ul>
+                </div>
+
+                <div class="summary-actions">
+                  <button class="btn btn-primary" id="restart-btn">Restart Interview</button>
+                  <a href="dashboard.html" class="btn btn-secondary">Go to Dashboard</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/interview-simulator.js"></script>
+</body>
+</html>

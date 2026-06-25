@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="View and manage your CareerLaunch AI user profile and achievements.">
-  <title>My Profile | CareerLaunch AI</title>
+  <meta name="description" content="View and manage your CareerLaunch Hub user profile and achievements.">
+  <title>My Profile | CareerLaunch Hub</title>
   <script src="js/authentication.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,13 +23,25 @@
     <aside id="sidebar" class="sidebar">
       <a href="index.html" class="sidebar-brand">
         <div class="sidebar-brand-icon">🚀</div>
-        <span>CareerLaunch AI</span>
+        <span>CareerLaunch Hub</span>
       </a>
       <nav class="sidebar-nav">
+        <div class="sidebar-section-header">Core</div>
         <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        
+        <div class="sidebar-section-header">Practice</div>
+        <a href="interview-simulator.html" class="sidebar-link"><span class="sidebar-link-icon">🤖</span> Interview Simulator</a>
         <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
         <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="coding-playground.html" class="sidebar-link"><span class="sidebar-link-icon">💻</span> Coding Playground</a>
+        
+        <div class="sidebar-section-header">Planning</div>
+        <a href="roadmaps.html" class="sidebar-link"><span class="sidebar-link-icon">🗺️</span> Roadmaps</a>
+        <a href="study-planner.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span> Study Planner</a>
+        <a href="notes.html" class="sidebar-link"><span class="sidebar-link-icon">📝</span> Personal Notes</a>
         <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        
+        <div class="sidebar-section-header">System</div>
         <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
         <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
       </nav>
@@ -155,7 +167,7 @@
                   <div class="glass-card achievement-card locked" id="badge_first_login">
                     <div class="achievement-icon">🎉</div>
                     <div class="achievement-title">First Login</div>
-                    <div class="achievement-desc">Welcome to CareerLaunch AI!</div>
+                    <div class="achievement-desc">Welcome to CareerLaunch Hub!</div>
                     <span class="achievement-status locked-badge">Locked</span>
                   </div>
                   <!-- 7 Day Streak -->
@@ -207,11 +219,46 @@
                     <div class="achievement-desc">Score 100% on an SQL quiz.</div>
                     <span class="achievement-status locked-badge">Locked</span>
                   </div>
-                  <!-- Resume Expert -->
+                   <!-- Resume Expert -->
                   <div class="glass-card achievement-card locked" id="badge_resume_expert">
                     <div class="achievement-icon">📄</div>
                     <div class="achievement-title">Resume Expert</div>
                     <div class="achievement-desc">Attain an ATS Score of 85%+.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- Python Roadmap -->
+                  <div class="glass-card achievement-card locked" id="badge_python_roadmap">
+                    <div class="achievement-icon">🐍</div>
+                    <div class="achievement-title">Python Road</div>
+                    <div class="achievement-desc">Complete the Python Roadmap.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- Frontend Roadmap -->
+                  <div class="glass-card achievement-card locked" id="badge_frontend_roadmap">
+                    <div class="achievement-icon">🎨</div>
+                    <div class="achievement-title">Frontend Road</div>
+                    <div class="achievement-desc">Complete the Frontend Roadmap.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- Backend Roadmap -->
+                  <div class="glass-card achievement-card locked" id="badge_backend_roadmap">
+                    <div class="achievement-icon">⚙️</div>
+                    <div class="achievement-title">Backend Road</div>
+                    <div class="achievement-desc">Complete the Backend Roadmap.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- JS Mastery Roadmap -->
+                  <div class="glass-card achievement-card locked" id="badge_js_roadmap">
+                    <div class="achievement-icon">🟨</div>
+                    <div class="achievement-title">JS Road</div>
+                    <div class="achievement-desc">Complete the JS Mastery Roadmap.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- SQL Mastery Roadmap -->
+                  <div class="glass-card achievement-card locked" id="badge_sql_roadmap">
+                    <div class="achievement-icon">💾</div>
+                    <div class="achievement-title">SQL Road</div>
+                    <div class="achievement-desc">Complete the SQL Mastery Roadmap.</div>
                     <span class="achievement-status locked-badge">Locked</span>
                   </div>
                 </div>

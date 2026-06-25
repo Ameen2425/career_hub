@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CareerLaunch AI Dashboard - Track your career preparation progress.">
-  <title>Dashboard | CareerLaunch AI</title>
+  <meta name="description" content="CareerLaunch Hub Dashboard - Track your career preparation progress.">
+  <title>Dashboard | CareerLaunch Hub</title>
   <script src="js/authentication.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,13 +24,25 @@
     <aside id="sidebar" class="sidebar">
       <a href="index.html" class="sidebar-brand">
         <div class="sidebar-brand-icon">🚀</div>
-        <span>CareerLaunch AI</span>
+        <span>CareerLaunch Hub</span>
       </a>
       <nav class="sidebar-nav">
+        <div class="sidebar-section-header">Core</div>
         <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        
+        <div class="sidebar-section-header">Practice</div>
+        <a href="interview-simulator.html" class="sidebar-link"><span class="sidebar-link-icon">🤖</span> Interview Simulator</a>
         <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
         <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="coding-playground.html" class="sidebar-link"><span class="sidebar-link-icon">💻</span> Coding Playground</a>
+        
+        <div class="sidebar-section-header">Planning</div>
+        <a href="roadmaps.html" class="sidebar-link"><span class="sidebar-link-icon">🗺️</span> Roadmaps</a>
+        <a href="study-planner.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span> Study Planner</a>
+        <a href="notes.html" class="sidebar-link"><span class="sidebar-link-icon">📝</span> Personal Notes</a>
         <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        
+        <div class="sidebar-section-header">System</div>
         <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
         <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
       </nav>
@@ -61,7 +73,7 @@
             </div>
             <div class="dashboard-quote-box">
               <p id="dashboard-quote">"Loading quote..."</p>
-              <span id="dashboard-quote-author">— CareerLaunch AI</span>
+              <span id="dashboard-quote-author">— CareerLaunch Hub</span>
             </div>
           </div>
 
@@ -94,24 +106,107 @@
             </div>
           </div>
 
+          <!-- Interactive Widgets Grid -->
+          <div class="dashboard-widgets-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;">
+            
+            <!-- Today's Goal Progress Radial Widget -->
+            <div class="glass-card widget-card" style="padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px; align-self: flex-start;">📅 Today's Goal Progress</h3>
+              <div style="position: relative; width: 120px; height: 120px; margin-bottom: 12px;">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-tertiary)" stroke-width="8" />
+                  <circle id="dash-radial-fill" cx="60" cy="60" r="50" fill="none" stroke="url(#dash-radial-gradient)" stroke-width="8" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset 0.6s ease;" />
+                  <defs>
+                    <linearGradient id="dash-radial-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--primary)" />
+                      <stop offset="100%" stop-color="var(--secondary)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div id="dash-radial-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.25rem; font-weight: 800; color: var(--text-primary);">0%</div>
+              </div>
+              <p style="font-size: 0.8125rem; color: var(--text-secondary);" id="dash-radial-desc">No daily goals created yet.</p>
+              <a href="study-planner.html" class="btn btn-secondary btn-sm" style="margin-top: 12px; width: 100%;">Open Study Planner</a>
+            </div>
+
+            <!-- Upcoming Tasks Planner checklist -->
+            <div class="glass-card widget-card" style="padding: 24px; display: flex; flex-direction: column;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px;">📋 Upcoming Goals</h3>
+              <div id="dash-upcoming-tasks" style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                <!-- Injected by JS -->
+              </div>
+              <a href="study-planner.html" class="btn btn-secondary btn-sm" style="margin-top: 16px; width: 100%;">Add New Goal</a>
+            </div>
+
+            <!-- Recent Notes pinned notes list -->
+            <div class="glass-card widget-card" style="padding: 24px; display: flex; flex-direction: column;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px;">📌 Recent Pinned Notes</h3>
+              <div id="dash-recent-notes" style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                <!-- Injected by JS -->
+              </div>
+              <a href="notes.html" class="btn btn-secondary btn-sm" style="margin-top: 16px; width: 100%;">Write a Note</a>
+            </div>
+
+            <!-- Roadmap Progress Progress bars -->
+            <div class="glass-card widget-card" style="padding: 24px; display: flex; flex-direction: column;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px;">🧭 Roadmap Paths Progress</h3>
+              <div id="dash-roadmaps-progress" style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+                <!-- Injected by JS -->
+              </div>
+              <a href="roadmaps.html" class="btn btn-secondary btn-sm" style="margin-top: 16px; width: 100%;">View Curriculum</a>
+            </div>
+
+          </div>
+
           <div class="dashboard-charts-grid">
             <div class="dashboard-chart-card glass-card full-width">
-              <h3>📈 Weekly Progress</h3>
+              <h3>📈 Daily & Weekly Multi-Activity Progress</h3>
               <div class="chart-container"><canvas id="weekly-progress-chart"></canvas></div>
             </div>
             <div class="dashboard-chart-card glass-card">
-              <h3>🧠 Quiz Performance</h3>
-              <div class="chart-container"><canvas id="quiz-perf-chart"></canvas></div>
+              <h3>📅 Monthly Planner Productivity</h3>
+              <div class="chart-container"><canvas id="monthly-planner-chart"></canvas></div>
             </div>
             <div class="dashboard-chart-card glass-card">
-              <h3>📄 Resume Improvement</h3>
+              <h3>📄 Resume Score Improvement</h3>
               <div class="chart-container"><canvas id="resume-tracking-chart"></canvas></div>
             </div>
           </div>
 
-          <div class="activity-section glass-card">
-            <h3>Recent Activity</h3>
-            <div id="recent-activity"></div>
+          <!-- Secondary Panels Grid -->
+          <div class="dashboard-secondary-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+            
+            <!-- Interview Simulator & Playground Card -->
+            <div class="glass-card" style="padding: 24px;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px;">🤖 Practice Simulator & Playground</h3>
+              
+              <!-- Interview Simulator Summary -->
+              <div style="padding: 16px; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: var(--radius-md); margin-bottom: 16px;">
+                <h4 style="font-size: 0.875rem; margin-bottom: 10px; color: var(--primary-light);">Latest Interview Simulator Performance</h4>
+                <div id="dash-simulator-summary">
+                  <!-- Injected by JS -->
+                </div>
+              </div>
+
+              <!-- Playground Activity -->
+              <div style="padding: 16px; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: var(--radius-md);">
+                <h4 style="font-size: 0.875rem; margin-bottom: 10px; color: var(--secondary);">Coding Playground Summary</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.875rem; color: var(--text-secondary);">Total Playground Compilations:</span>
+                  <strong style="font-size: 1.125rem; color: var(--text-primary);" id="dash-playground-count">0</strong>
+                </div>
+                <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);">
+                  Quickly draft code concepts and export standalone HTML assets.
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity Card -->
+            <div class="activity-section glass-card" style="margin-bottom: 0;">
+              <h3 style="font-size: 1rem; margin-bottom: 16px;">🔔 Recent Platform Activity</h3>
+              <div id="recent-activity"></div>
+            </div>
+
           </div>
         </div>
       </main>

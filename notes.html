@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal notebook and preparation notes with category tags, pinning, and rapid search filtering.">
+  <title>Personal Notes | CareerLaunch Hub</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notes.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Notes...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch Hub</span>
+      </a>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-header">Core</div>
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        
+        <div class="sidebar-section-header">Practice</div>
+        <a href="interview-simulator.html" class="sidebar-link"><span class="sidebar-link-icon">🤖</span> Interview Simulator</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="coding-playground.html" class="sidebar-link"><span class="sidebar-link-icon">💻</span> Coding Playground</a>
+        
+        <div class="sidebar-section-header">Planning</div>
+        <a href="roadmaps.html" class="sidebar-link"><span class="sidebar-link-icon">🗺️</span> Roadmaps</a>
+        <a href="study-planner.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span> Study Planner</a>
+        <a href="notes.html" class="sidebar-link"><span class="sidebar-link-icon">📝</span> Personal Notes</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        
+        <div class="sidebar-section-header">System</div>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Personal Notes</h1>
+            <p>Save concepts, write templates, and review interview preparation insights</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <!-- Toolbar -->
+          <div class="notes-header-actions">
+            <div class="notes-search-wrapper">
+              <div class="search-box" style="flex: 1; margin: 0;">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="notes-search" placeholder="Search notes by keyword, title, or category...">
+              </div>
+            </div>
+            <button class="btn btn-primary" id="add-note-btn">Create Note +</button>
+          </div>
+
+          <!-- Empty State -->
+          <div id="notes-empty-state" class="glass-card" style="display: none; padding: 48px; text-align: center; max-width: 400px; margin: 40px auto;">
+            <div style="font-size: 3rem; margin-bottom: 16px;">📝</div>
+            <h3 style="margin-bottom: 8px;">No Notes Found</h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">Create a note to save your interview topics, questions, and revision summaries.</p>
+          </div>
+
+          <!-- Pinned Section -->
+          <section class="notes-section" id="pinned-section" style="display: none;">
+            <h2 class="notes-section-title">📌 Pinned Notes</h2>
+            <div class="notes-grid" id="pinned-notes-grid">
+              <!-- Cards dynamically injected here -->
+            </div>
+          </section>
+
+          <!-- All Notes Section -->
+          <section class="notes-section" id="regular-section" style="display: none;">
+            <h2 class="notes-section-title">📝 My Notes</h2>
+            <div class="notes-grid" id="regular-notes-grid">
+              <!-- Cards dynamically injected here -->
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Note Creation/Edit Modal -->
+  <div class="modal-overlay" id="note-modal">
+    <div class="glass-card modal-container">
+      <div class="modal-header">
+        <h2 id="modal-title" style="font-size: 1.25rem;">Create New Note</h2>
+        <button class="modal-close-btn" id="modal-close">×</button>
+      </div>
+      <form id="note-form">
+        <div class="form-group">
+          <label for="note-title-input">Note Title</label>
+          <input type="text" id="note-title-input" class="form-input" placeholder="e.g. Closure Practical Concept" required>
+        </div>
+        <div class="form-group">
+          <label for="note-category-select">Category Tag</label>
+          <select id="note-category-select" class="form-select">
+            <option value="Interview">Interview</option>
+            <option value="Python">Python</option>
+            <option value="JS">JS</option>
+            <option value="SQL">SQL</option>
+            <option value="HR">HR</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="note-content-input">Note Description</label>
+          <textarea id="note-content-input" class="form-textarea" placeholder="Write your key points, code snippets, or definitions here..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" id="cancel-note-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/notes.js"></script>
+</body>
+</html>

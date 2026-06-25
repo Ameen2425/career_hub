@@ -1,5 +1,5 @@
 /* ============================================
-   CareerLaunch AI - Main Stylesheet
+   CareerLaunch Hub - Main Stylesheet
    Premium SaaS-style UI with Glassmorphism
    ============================================ */
 
@@ -1685,7 +1685,7 @@ main {
   }
 }
 
-/* --- CareerLaunch AI: App Layout & Sidebar --- */
+/* --- CareerLaunch Hub: App Layout & Sidebar --- */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -1730,6 +1730,16 @@ main {
   flex: 1;
   padding: 16px 12px;
   overflow-y: auto;
+}
+
+.sidebar-section-header {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  padding: 16px 16px 8px;
+  opacity: 0.8;
 }
 
 .sidebar-link {

@@ -1,8 +1,8 @@
-# CareerLaunch AI 🚀
+# CareerLaunch Hub 🚀
 
-**CareerLaunch AI** is a premium, all-in-one career preparation platform built with pure HTML, CSS, and JavaScript. It combines interview preparation, AI resume analysis UI, and career learning resources into a single polished SaaS-style web application — perfect for students, freshers, and professionals preparing for their dream jobs.
+**CareerLaunch Hub** is a premium, all-in-one career preparation platform built with pure HTML, CSS, and JavaScript. It combines interview preparation, AI resume analysis UI, and career learning resources into a single polished SaaS-style web application — perfect for students, freshers, and professionals preparing for their dream jobs.
 
-![CareerLaunch AI Banner](assets/images/screenshot-placeholder.png)
+![CareerLaunch Hub Banner](assets/images/screenshot-placeholder.png)
 
 > **Note:** Replace `assets/images/screenshot-placeholder.png` with your actual screenshots after deployment.
 
@@ -53,7 +53,7 @@ https://YOUR_USERNAME.github.io/Interview-Preparation-Hub/
 - Confetti celebration for 80%+ scores
 - Share score functionality
 
-### 📄 Module 2: AI Resume Analyzer (UI)
+### 📄 Module 2: Smart Resume Analyzer (UI)
 - Drag & drop upload zone
 - Resume preview with file details
 - ATS score visualization (circular chart)
@@ -101,7 +101,7 @@ https://YOUR_USERNAME.github.io/Interview-Preparation-Hub/
 ## 📁 Project Structure
 
 ```
-CareerLaunch-AI/
+CareerLaunch-Hub/
 ├── index.html              # Landing page
 ├── dashboard.html          # Main dashboard
 ├── interview.html          # Question bank
@@ -213,4 +213,4 @@ This project is open source and available for portfolio and educational use.
 
 Built as a portfolio project to demonstrate modern frontend development skills.
 
-**CareerLaunch AI** — *Launch Your Dream Career* 🚀
+**CareerLaunch Hub** — *Launch Your Dream Career* 🚀

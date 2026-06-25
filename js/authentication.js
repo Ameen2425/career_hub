@@ -1,10 +1,22 @@
 /**
- * CareerLaunch AI - Authentication & Routing System
+ * CareerLaunch Hub - Authentication & Routing System
  */
 
 // Immediate Protection Check to Prevent Content Flashing
 (function() {
-  const protectedPages = ['dashboard.html', 'interview.html', 'quiz.html', 'resume-analyzer.html', 'resources.html', 'profile.html'];
+  const protectedPages = [
+    'dashboard.html', 
+    'interview.html', 
+    'quiz.html', 
+    'resume-analyzer.html', 
+    'resources.html', 
+    'profile.html',
+    'interview-simulator.html',
+    'coding-playground.html',
+    'roadmaps.html',
+    'notes.html',
+    'study-planner.html'
+  ];
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
   if (protectedPages.includes(currentPage)) {

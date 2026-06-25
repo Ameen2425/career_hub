@@ -1,5 +1,5 @@
 /**
- * CareerLaunch AI - Mock Quiz Module
+ * CareerLaunch Hub - Mock Quiz Module
  */
 
 const QuizPage = {
