@@ -278,6 +278,40 @@
       }
     }
 
+    @media (max-width: 768px) {
+      /* Scrollable horizontal tab bar on mobile */
+      .resources-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 12px;
+        gap: 8px;
+      }
+
+      .resources-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .resource-tab-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 10px 14px;
+        font-size: 0.8125rem;
+      }
+
+      /* Project ideas grid single column */
+      .project-grid,
+      .projects-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Tips two-column grid down to one column */
+      .tips-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }

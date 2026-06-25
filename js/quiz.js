@@ -52,6 +52,9 @@ const QuizPage = {
     document.getElementById('quiz-active')?.classList.remove('hidden');
     document.getElementById('quiz-results')?.classList.add('hidden');
 
+    // Scroll to top so mobile users see the quiz from the beginning
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     this.startTimer();
     this.renderQuestion();
   },

@@ -79,3 +79,55 @@
   max-width: 300px;
   margin: 24px auto;
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .daily-widget-inline .glass-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .daily-widget-inline .daily-question {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .daily-widget-inline .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .interview-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .results-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .results-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .interview-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quiz-question-text {
+    font-size: 1.05rem;
+  }
+
+  .quiz-option {
+    padding: 12px 14px;
+    font-size: 0.875rem;
+  }
+}

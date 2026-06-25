@@ -1591,9 +1591,14 @@ select option {
   .charts-grid {
     grid-template-columns: 1fr;
   }
+
+  .landing-modules {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
+  /* --- Navbar Mobile --- */
   .navbar-nav {
     position: fixed;
     top: var(--navbar-height);
@@ -1608,6 +1613,7 @@ select option {
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
+    z-index: 1200;
   }
 
   .navbar-nav.open {
@@ -1625,11 +1631,18 @@ select option {
     display: flex;
   }
 
+  /* Hide "Open Dashboard" button in landing navbar on mobile to reduce crowding */
+  .landing-nav .navbar-actions .btn {
+    display: none;
+  }
+
   .streak-badge {
     display: none;
   }
 
-  .hero {
+  /* --- Landing Page --- */
+  .hero,
+  .landing-hero {
     padding: 80px 0 60px;
   }
 
@@ -1637,11 +1650,34 @@ select option {
     padding: 60px 0;
   }
 
+  .landing-hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .landing-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-modules {
+    grid-template-columns: 1fr;
+  }
+
+  /* --- Footer --- */
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
 
+  /* --- Quiz --- */
   .results-stats {
     grid-template-columns: 1fr;
   }
@@ -1659,26 +1695,60 @@ select option {
     overflow-x: auto;
   }
 
+  /* --- Interview Hub --- */
+  .interview-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .daily-widget-inline .glass-card {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  /* --- App header on mobile --- */
+  .app-header-title h1 {
+    font-size: 1.1rem;
+  }
+
+  .app-header-title p {
+    display: none;
+  }
+
+  /* --- CTA section --- */
   .cta-card {
     padding: 48px 24px;
+  }
+
+  .cta-card h2 {
+    font-size: 1.5rem;
+  }
+
+  /* --- Section headers --- */
+  .section-header h2 {
+    font-size: 1.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 16px;
+    padding: 0 12px;
   }
 
   .glass-card {
-    padding: 24px;
+    padding: 20px 16px;
   }
 
   .hero-actions {
     flex-direction: column;
+    width: 100%;
   }
 
   .hero-actions .btn {
     width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 
   .toolbar {
@@ -1687,6 +1757,67 @@ select option {
 
   .search-box {
     width: 100%;
+  }
+
+  .landing-hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .landing-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .landing-stat-value {
+    font-size: 1.75rem;
+  }
+
+  .filter-section h4 {
+    font-size: 0.875rem;
+  }
+
+  /* Quiz navigation always full width on very small screens */
+  .quiz-navigation {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-navigation .btn {
+    width: 100%;
+  }
+
+  /* Notes header actions vertical stack */
+  .notes-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .notes-search-wrapper {
+    max-width: 100%;
+  }
+
+  #add-note-btn {
+    width: 100%;
+  }
+
+  /* App header smaller */
+  .app-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .landing-hero h1 {
+    font-size: 1.4rem;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.875rem;
   }
 }
 
@@ -2047,7 +2178,7 @@ body.page-loaded {
 
 @media (max-width: 768px) {
   .app-content {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
 
   .app-header {
@@ -2056,6 +2187,31 @@ body.page-loaded {
 
   .landing-stats {
     grid-template-columns: 1fr 1fr;
+  }
+
+  /* Sidebar overlay fixes for mobile */
+  .sidebar-overlay {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Summary actions wrap on mobile */
+  .summary-actions {
+    flex-wrap: wrap;
+  }
+
+  .summary-actions .btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
   }
 }
 

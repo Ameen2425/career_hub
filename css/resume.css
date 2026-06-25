@@ -252,3 +252,32 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .upload-dropzone {
+    padding: 32px 20px;
+  }
+
+  .upload-dropzone-icon {
+    font-size: 2.5rem;
+  }
+
+  .ats-score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .ats-score-value {
+    font-size: 2rem;
+  }
+
+  .analysis-action-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .analysis-action-bar .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
