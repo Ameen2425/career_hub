@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in to CareerLaunch AI to track your career progress.">
+  <title>Login | CareerLaunch AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading...</p>
+  </div>
+
+  <div class="auth-wrapper">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <!-- Login Form Card -->
+    <div class="glass-card auth-card" id="login-card">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </div>
+
+      <div class="auth-header">
+        <h2>Welcome Back</h2>
+        <p>Sign in to resume your career preparation journey</p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username or Email</label>
+          <input type="text" id="username" placeholder="Enter your username or email" required autocomplete="username">
+          <span class="error-message" id="username-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <span class="error-message" id="password-error"></span>
+        </div>
+
+        <div class="form-group-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="form-link" id="forgot-password-link">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In →</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a href="register.html" class="form-link">Sign Up</a></p>
+      </div>
+    </div>
+
+    <!-- Forgot Password Form Card (Hidden by default) -->
+    <div class="glass-card auth-card hidden" id="forgot-card">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </div>
+
+      <div class="auth-header">
+        <h2>Reset Password</h2>
+        <p>Enter your email to receive a password reset link</p>
+      </div>
+
+      <form id="forgot-form">
+        <div class="form-group">
+          <label for="forgot-email">Email Address</label>
+          <input type="email" id="forgot-email" placeholder="Enter your registered email" required>
+          <span class="error-message" id="forgot-email-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Send Reset Link →</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Back to <a href="#" class="form-link" id="back-to-login">Sign In</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Toggle Password Visibility
+      const passwordInput = document.getElementById('password');
+      const togglePasswordBtn = document.querySelector('.password-toggle-btn');
+      
+      togglePasswordBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePasswordBtn.textContent = type === 'password' ? '👁️' : '🙈';
+      });
+
+      // Toggle Forgot Password Views
+      const loginCard = document.getElementById('login-card');
+      const forgotCard = document.getElementById('forgot-card');
+      const forgotPasswordLink = document.getElementById('forgot-password-link');
+      const backToLogin = document.getElementById('back-to-login');
+
+      forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginCard.classList.add('hidden');
+        forgotCard.classList.remove('hidden');
+      });
+
+      backToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        forgotCard.classList.add('hidden');
+        loginCard.classList.remove('hidden');
+      });
+
+      // Handle Login Submit
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const usernameVal = document.getElementById('username').value.trim();
+        const passwordVal = document.getElementById('password').value;
+        const rememberMe = document.getElementById('remember-me').checked;
+
+        // Reset errors
+        document.getElementById('username-error').textContent = '';
+        document.getElementById('password-error').textContent = '';
+
+        if (!usernameVal) {
+          document.getElementById('username-error').textContent = 'Username or email is required';
+          return;
+        }
+        if (!passwordVal) {
+          document.getElementById('password-error').textContent = 'Password is required';
+          return;
+        }
+
+        const result = Auth.login(usernameVal, passwordVal, rememberMe);
+
+        if (result.success) {
+          App.showToast('Welcome back! Logging you in...', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1000);
+        } else {
+          App.showToast(result.message, 'error');
+          document.getElementById('password-error').textContent = result.message;
+        }
+      });
+
+      // Handle Forgot Password Submit
+      const forgotForm = document.getElementById('forgot-form');
+      forgotForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const emailVal = document.getElementById('forgot-email').value.trim();
+        document.getElementById('forgot-email-error').textContent = '';
+
+        if (!emailVal) {
+          document.getElementById('forgot-email-error').textContent = 'Email is required';
+          return;
+        }
+
+        const result = Auth.resetPassword(emailVal);
+
+        if (result.success) {
+          App.showToast(result.message, 'success');
+          setTimeout(() => {
+            forgotCard.classList.add('hidden');
+            loginCard.classList.remove('hidden');
+          }, 2000);
+        } else {
+          App.showToast(result.message, 'error');
+          document.getElementById('forgot-email-error').textContent = result.message;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

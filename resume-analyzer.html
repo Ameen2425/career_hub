@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Resume Analyzer - ATS scoring, skills analysis, and optimization suggestions.">
+  <title>Resume Analyzer | CareerLaunch AI</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/resume.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Resume Analyzer...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>AI Resume Analyzer</h1>
+            <p>Upload your resume for ATS scoring and optimization insights</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <div class="resume-layout">
+            <div class="upload-section">
+              <div id="dropzone" class="dropzone">
+                <div class="dropzone-icon">📤</div>
+                <h3>Drag & Drop Your Resume</h3>
+                <p>or click to browse files</p>
+                <p class="dropzone-formats">Supports PDF, DOC, DOCX, TXT • Max 5MB</p>
+                <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt" hidden>
+              </div>
+
+              <div id="resume-preview" class="resume-preview glass-card hidden">
+                <div class="preview-icon" id="preview-icon">📄</div>
+                <div class="preview-details">
+                  <h4 id="preview-filename">resume.pdf</h4>
+                  <p id="preview-filesize">0 KB</p>
+                  <p id="preview-filetype">PDF Document</p>
+                </div>
+                <div class="preview-actions">
+                  <button id="remove-file" class="btn btn-sm btn-secondary">Remove</button>
+                </div>
+              </div>
+
+              <button id="analyze-btn" class="btn btn-primary" style="width:100%;margin-top:16px;" disabled>Analyze Resume →</button>
+              <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;text-align:center;">UI simulation — analysis uses sample AI data for demo purposes</p>
+            </div>
+
+            <div class="analysis-section">
+              <div id="analysis-results" class="hidden">
+                <div id="analysis-skeleton">
+                  <div class="skeleton-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>
+                  <div class="skeleton-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text short"></div></div>
+                </div>
+
+                <div id="analysis-content" class="hidden">
+                  <div class="analytics-grid">
+                    <div class="analytics-card glass-card">
+                      <div class="ats-chart-wrap">
+                        <canvas id="ats-chart"></canvas>
+                        <div class="ats-score-center">
+                          <span id="ats-score">0%</span>
+                          <span>ATS Score</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="analytics-card glass-card">
+                      <div class="analytics-card-value" id="overall-score">0%</div>
+                      <div class="analytics-card-label">Overall Resume Score</div>
+                      <div class="score-progress-section" style="margin-top:20px;">
+                        <div class="score-progress-header"><span>Optimization Progress</span><span id="overall-score-label">0%</span></div>
+                        <div class="score-progress-track"><div class="score-progress-bar" id="score-progress-bar"></div></div>
+                      </div>
+                    </div>
+                    <div class="analytics-card glass-card">
+                      <div class="analytics-card-value" id="tech-match">0%</div>
+                      <div class="analytics-card-label">Technical Skills Match</div>
+                    </div>
+                    <div class="analytics-card glass-card">
+                      <div class="analytics-card-value" id="comm-rating">0%</div>
+                      <div class="analytics-card-label">Communication Skills Rating</div>
+                    </div>
+                    <div class="analytics-card glass-card">
+                      <div class="analytics-card-value" id="project-strength">0%</div>
+                      <div class="analytics-card-label">Project Strength Analysis</div>
+                    </div>
+                  </div>
+
+                  <div class="analysis-panel glass-card" style="margin-bottom:24px;">
+                    <h4>📊 Skills Match Analysis</h4>
+                    <div id="skills-bars"></div>
+                    <div class="radar-chart-wrap"><canvas id="skills-radar"></canvas></div>
+                  </div>
+
+                  <div class="analysis-grid">
+                    <div class="analysis-panel glass-card">
+                      <h4>🔑 Missing Keywords</h4>
+                      <div class="keyword-tags" id="missing-keywords"></div>
+                    </div>
+                    <div class="analysis-panel glass-card">
+                      <h4>💪 Strengths</h4>
+                      <ul class="analysis-list" id="strengths-list"></ul>
+                    </div>
+                    <div class="analysis-panel glass-card">
+                      <h4>⚠️ Weaknesses</h4>
+                      <ul class="analysis-list" id="weaknesses-list"></ul>
+                    </div>
+                    <div class="analysis-panel glass-card">
+                      <h4>✨ Suggested Improvements</h4>
+                      <ul class="analysis-list" id="suggestions-list"></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="analysis-placeholder" class="glass-card" style="text-align:center;padding:64px 32px;">
+                <div style="font-size:4rem;margin-bottom:16px;opacity:0.5;">📄</div>
+                <h3>Upload a Resume to Get Started</h3>
+                <p>Get ATS score, skills analysis, and personalized improvement suggestions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/resume.js"></script>
+  <script>
+    document.getElementById('analyze-btn')?.addEventListener('click', () => {
+      document.getElementById('analysis-placeholder')?.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View and manage your CareerLaunch AI user profile and achievements.">
+  <title>My Profile | CareerLaunch AI</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Profile...</p>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>User Profile & Progress</h1>
+            <p>Track your achievements, edit profile settings, and review skill analyses</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <div class="profile-grid">
+            
+            <!-- Left Side: Profile Card & Stats -->
+            <div class="profile-left-column" style="display: flex; flex-direction: column; gap: 24px;">
+              <div class="glass-card profile-card-left">
+                <div class="profile-avatar-large" id="profile-avatar-large">U</div>
+                <h2 id="profile-fullname-display">Full Name</h2>
+                <p id="profile-title-display" style="color: var(--primary-light); font-weight:600; margin-bottom:4px;">Title</p>
+                <p id="profile-username-display" style="font-size:0.875rem; color: var(--text-secondary); margin-bottom:16px;">@username</p>
+                <p id="profile-bio-display" style="font-size:0.9rem; margin-bottom:20px; font-style:italic;">No bio added yet.</p>
+                
+                <div style="width:100%; text-align:left; border-top:1px solid var(--border-glass); padding-top:16px; font-size:0.8rem; color:var(--text-muted);">
+                  <div style="margin-bottom:8px;">📅 Joined: <span id="profile-join-date" style="color:var(--text-secondary);">June 2026</span></div>
+                  <div>🔑 Last Login: <span id="profile-login-date" style="color:var(--text-secondary);">Today</span></div>
+                </div>
+              </div>
+
+              <!-- Stats Block -->
+              <div class="glass-card">
+                <h3>📈 Performance Summary</h3>
+                <div style="display:flex; flex-direction:column; gap:16px; margin-top:20px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Consistency Score</span>
+                    <span id="stat-consistency" style="font-weight:700; color:var(--success);">0%</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Total Study Time</span>
+                    <span id="stat-study-time" style="font-weight:700; color:var(--primary-light);">0m</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Questions Practiced</span>
+                    <span id="stat-questions" style="font-weight:700;">0</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Quizzes Completed</span>
+                    <span id="stat-quizzes" style="font-weight:700;">0</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Highest Quiz Score</span>
+                    <span id="stat-highest" style="font-weight:700; color:var(--accent);">0%</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:var(--text-secondary); font-size:0.9rem;">Resume ATS Score</span>
+                    <span id="stat-resume" style="font-weight:700; color:var(--secondary);">0%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Edit settings & achievements -->
+            <div class="profile-right-column" style="display: flex; flex-direction: column; gap: 24px;">
+              <!-- Edit Profile -->
+              <div class="glass-card">
+                <h3>👤 Edit Profile Details</h3>
+                <form id="edit-profile-form" style="margin-top:20px;">
+                  <div class="form-group">
+                    <label for="edit-fullname">Full Name</label>
+                    <input type="text" id="edit-fullname" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-title">Target Job Title</label>
+                    <input type="text" id="edit-title" placeholder="e.g. Frontend Engineer, Product Manager">
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-bio">Short Bio</label>
+                    <input type="text" id="edit-bio" placeholder="e.g. Aspiring developer focused on clean code...">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm">Save Profile Changes</button>
+                </form>
+              </div>
+
+              <!-- Change Password -->
+              <div class="glass-card">
+                <h3>🔑 Change Password</h3>
+                <form id="change-password-form" style="margin-top:20px;">
+                  <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" required autocomplete="current-password">
+                    <span class="error-message" id="current-password-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" required autocomplete="new-password">
+                    <span class="error-message" id="new-password-error"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required autocomplete="new-password">
+                    <span class="error-message" id="confirm-new-password-error"></span>
+                  </div>
+                  <button type="submit" class="btn btn-secondary btn-sm">Update Password</button>
+                </form>
+              </div>
+
+              <!-- Achievements Showcase -->
+              <div class="glass-card">
+                <h3>🏆 Achievements & Badges</h3>
+                <p style="font-size:0.875rem; color:var(--text-secondary); margin-top:4px;">Unlock developer skill and activity milestones.</p>
+                
+                <div class="achievements-grid" id="achievements-list">
+                  <!-- First Login -->
+                  <div class="glass-card achievement-card locked" id="badge_first_login">
+                    <div class="achievement-icon">🎉</div>
+                    <div class="achievement-title">First Login</div>
+                    <div class="achievement-desc">Welcome to CareerLaunch AI!</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- 7 Day Streak -->
+                  <div class="glass-card achievement-card locked" id="badge_7_streak">
+                    <div class="achievement-icon">🔥</div>
+                    <div class="achievement-title">7-Day Streak</div>
+                    <div class="achievement-desc">Maintain a 7-day login streak.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- 30 Day Streak -->
+                  <div class="glass-card achievement-card locked" id="badge_30_streak">
+                    <div class="achievement-icon">⚡</div>
+                    <div class="achievement-title">30-Day Streak</div>
+                    <div class="achievement-desc">Maintain a 30-day login streak.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- First Quiz Completed -->
+                  <div class="glass-card achievement-card locked" id="badge_first_quiz">
+                    <div class="achievement-icon">🧠</div>
+                    <div class="achievement-title">First Quiz</div>
+                    <div class="achievement-desc">Complete your first mock quiz.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- 100 Questions Practice -->
+                  <div class="glass-card achievement-card locked" id="badge_100_questions">
+                    <div class="achievement-icon">📚</div>
+                    <div class="achievement-title">Century Club</div>
+                    <div class="achievement-desc">View 100 interview questions.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- Python Master -->
+                  <div class="glass-card achievement-card locked" id="badge_python_master">
+                    <div class="achievement-icon">🐍</div>
+                    <div class="achievement-title">Python Master</div>
+                    <div class="achievement-desc">Score 100% on a Python quiz.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- JavaScript Master -->
+                  <div class="glass-card achievement-card locked" id="badge_javascript_master">
+                    <div class="achievement-icon">🟨</div>
+                    <div class="achievement-title">JS Master</div>
+                    <div class="achievement-desc">Score 100% on a JS quiz.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- SQL Master -->
+                  <div class="glass-card achievement-card locked" id="badge_sql_master">
+                    <div class="achievement-icon">🐬</div>
+                    <div class="achievement-title">SQL Master</div>
+                    <div class="achievement-desc">Score 100% on an SQL quiz.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                  <!-- Resume Expert -->
+                  <div class="glass-card achievement-card locked" id="badge_resume_expert">
+                    <div class="achievement-icon">📄</div>
+                    <div class="achievement-title">Resume Expert</div>
+                    <div class="achievement-desc">Attain an ATS Score of 85%+.</div>
+                    <span class="achievement-status locked-badge">Locked</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Radar Category Chart -->
+              <div class="glass-card">
+                <h3>📊 Skill Category Strengths</h3>
+                <div style="height: 300px; margin-top:20px;">
+                  <canvas id="category-radar-chart"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

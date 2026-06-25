@@ -1,0 +1,81 @@
+/* CareerLaunch AI - Interview Hub Styles */
+
+.interview-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.interview-stat {
+  padding: 20px;
+  text-align: center;
+}
+
+.interview-stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary-light);
+}
+
+.interview-stat-label {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.daily-widget-inline {
+  margin-bottom: 32px;
+}
+
+.daily-widget-inline .glass-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 24px 32px;
+}
+
+.daily-widget-inline .daily-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.daily-widget-inline .daily-question {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 200px;
+}
+
+.filter-section {
+  margin-bottom: 24px;
+}
+
+.filter-section h4 {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quiz-history-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.quiz-history-section h3 {
+  margin-bottom: 20px;
+}
+
+.quiz-result-chart-wrap {
+  height: 200px;
+  max-width: 300px;
+  margin: 24px auto;
+}

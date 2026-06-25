@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareerLaunch AI Dashboard - Track your career preparation progress.">
+  <title>Dashboard | CareerLaunch AI</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Dashboard...</p>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="streak-badge" style="width:100%;justify-content:center;margin-bottom:12px;">🔥 <span class="streak-count">0</span> day streak</div>
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Dashboard</h1>
+            <p>Your career progress at a glance</p>
+          </div>
+        </div>
+        <a href="quiz.html" class="btn btn-primary btn-sm">Start Quiz →</a>
+      </header>
+
+      <main id="dashboard-page">
+        <div class="app-content">
+          <div class="dashboard-hero">
+            <div class="dashboard-hero-content">
+              <h2 id="dashboard-greeting">Good morning</h2>
+              <p>Track your interview prep, resume score, and job applications — all in one place.</p>
+            </div>
+            <div class="dashboard-quote-box">
+              <p id="dashboard-quote">"Loading quote..."</p>
+              <span id="dashboard-quote-author">— CareerLaunch AI</span>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <a href="interview.html" class="quick-action-btn"><span class="quick-action-icon">📚</span> Practice Questions</a>
+            <a href="quiz.html" class="quick-action-btn"><span class="quick-action-icon">🧠</span> Take Mock Quiz</a>
+            <a href="resume-analyzer.html" class="quick-action-btn"><span class="quick-action-icon">📄</span> Analyze Resume</a>
+          </div>
+
+          <div class="dash-stats-grid">
+            <div class="dash-stat-card glass-card">
+              <div class="dash-stat-icon">📚</div>
+              <div><div class="dash-stat-value" id="dash-practiced">0</div><div class="dash-stat-label">Questions Practiced</div></div>
+            </div>
+            <div class="dash-stat-card glass-card">
+              <div class="dash-stat-icon">🧠</div>
+              <div><div class="dash-stat-value" id="dash-quizzes">0</div><div class="dash-stat-label">Quizzes Completed</div></div>
+            </div>
+            <div class="dash-stat-card glass-card">
+              <div class="dash-stat-icon">📈</div>
+              <div><div class="dash-stat-value" id="dash-avg-score">0%</div><div class="dash-stat-label">Average Quiz Score</div></div>
+            </div>
+            <div class="dash-stat-card glass-card">
+              <div class="dash-stat-icon">📄</div>
+              <div><div class="dash-stat-value" id="dash-resume">0%</div><div class="dash-stat-label">Resume ATS Score</div></div>
+            </div>
+            <div class="dash-stat-card glass-card">
+              <div class="dash-stat-icon">🎯</div>
+              <div><div class="dash-stat-value" id="dash-learning-progress">0%</div><div class="dash-stat-label">Learning Progress</div></div>
+            </div>
+          </div>
+
+          <div class="dashboard-charts-grid">
+            <div class="dashboard-chart-card glass-card full-width">
+              <h3>📈 Weekly Progress</h3>
+              <div class="chart-container"><canvas id="weekly-progress-chart"></canvas></div>
+            </div>
+            <div class="dashboard-chart-card glass-card">
+              <h3>🧠 Quiz Performance</h3>
+              <div class="chart-container"><canvas id="quiz-perf-chart"></canvas></div>
+            </div>
+            <div class="dashboard-chart-card glass-card">
+              <h3>📄 Resume Improvement</h3>
+              <div class="chart-container"><canvas id="resume-tracking-chart"></canvas></div>
+            </div>
+          </div>
+
+          <div class="activity-section glass-card">
+            <h3>Recent Activity</h3>
+            <div id="recent-activity"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Career Resources Hub - Learning roadmaps, resume writing guide, GitHub portfolio checklist, project ideas, and coding tips.">
+  <title>Career Resources Hub | CareerLaunch AI</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Career Resources Hub Custom Styling */
+    .resources-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .resources-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .resource-tab-btn {
+      padding: 12px 20px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .resource-tab-btn:hover,
+    .resource-tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Roadmap Timeline Styling */
+    .roadmap-timeline {
+      position: relative;
+      padding-left: 32px;
+      margin-top: 24px;
+    }
+
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border-glass);
+    }
+
+    .roadmap-step {
+      position: relative;
+      padding-bottom: 32px;
+    }
+
+    .roadmap-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .roadmap-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px var(--primary-light);
+    }
+
+    .roadmap-step.active-step .roadmap-dot {
+      border-color: var(--secondary);
+      box-shadow: 0 0 10px var(--secondary);
+    }
+
+    .roadmap-step.completed-step .roadmap-dot {
+      border-color: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .roadmap-content {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: var(--transition);
+    }
+
+    .roadmap-content:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--primary);
+    }
+
+    .roadmap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .roadmap-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .roadmap-duration {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--primary-light);
+      border-radius: 999px;
+    }
+
+    .roadmap-step.active-step .roadmap-duration {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.3);
+      color: var(--secondary);
+    }
+
+    .roadmap-step.completed-step .roadmap-duration {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--success);
+    }
+
+    .roadmap-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .tech-pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      border: 1px solid var(--border-glass);
+    }
+
+    /* Grid layout for cards */
+    .roadmaps-grid,
+    .projects-grid,
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .resource-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checklist-list,
+    .verbs-list,
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .checklist-list li,
+    .tips-list li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .checklist-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--success);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .tips-list li::before {
+      content: '⚡';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .project-badge {
+      align-self: flex-start;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .project-badge.easy { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .project-badge.medium { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .project-badge.hard { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 12px 0 16px;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    /* Motivation panel custom styles */
+    .motivation-split {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .motivation-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Career Resources Hub...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Career Resources Hub</h1>
+            <p>Master roadmaps, optimize guides, explore project ideas, and get daily inspiration</p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <div class="resources-layout">
+            <!-- Navigation Tabs -->
+            <div class="resources-tabs">
+              <button class="resource-tab-btn active" data-tab="python-roadmap">🐍 Python Roadmap</button>
+              <button class="resource-tab-btn" data-tab="career-roadmaps">🗺️ Interview Roadmaps</button>
+              <button class="resource-tab-btn" data-tab="resume-guide">📝 Resume Guide</button>
+              <button class="resource-tab-btn" data-tab="github-guide">🐙 GitHub Profile Guide</button>
+              <button class="resource-tab-btn" data-tab="project-ideas">💡 Project Ideas</button>
+              <button class="resource-tab-btn" data-tab="coding-tips">⌨️ Coding Tips</button>
+              <button class="resource-tab-btn" data-tab="motivation">🔥 Motivation Hub</button>
+            </div>
+
+            <!-- Tab 1: Full Stack Python Roadmap -->
+            <div class="tab-content active" id="python-roadmap">
+              <h2>🐍 Full Stack Python Developer Roadmap</h2>
+              <p style="margin-bottom: 24px;">Your comprehensive, step-by-step visual timeline to mastering modern Python full-stack engineering.</p>
+              
+              <div class="roadmap-timeline">
+                <div class="roadmap-step completed-step">
+                  <div class="roadmap-dot">✓</div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-header">
+                      <h3 class="roadmap-title">Phase 1: Python Core Foundations</h3>
+                      <span class="roadmap-duration">Week 1-3</span>
+                    </div>
+                    <p>Master standard data types, control flow, functions, OOP concepts, exceptions, list/dict comprehensions, decorators, and generator expressions.</p>
+                    <div class="roadmap-tech">
+                      <span class="tech-pill">Python Core</span>
+                      <span class="tech-pill">OOP</span>
+                      <span class="tech-pill">Decorators</span>
+                      <span class="tech-pill">Generators</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="roadmap-step completed-step">
+                  <div class="roadmap-dot">✓</div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-header">
+                      <h3 class="roadmap-title">Phase 2: Database Management & SQL</h3>
+                      <span class="roadmap-duration">Week 4-5</span>
+                    </div>
+                    <p>Learn relational database design, SQL syntax, indexes, aggregate functions, complex joins, and SQLite/PostgreSQL integrations with Python.</p>
+                    <div class="roadmap-tech">
+                      <span class="tech-pill">PostgreSQL</span>
+                      <span class="tech-pill">SQL</span>
+                      <span class="tech-pill">SQLAlchemy</span>
+                      <span class="tech-pill">Database Indexing</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="roadmap-step active-step">
+                  <div class="roadmap-dot">→</div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-header">
+                      <h3 class="roadmap-title">Phase 3: Backend Frameworks & REST APIs</h3>
+                      <span class="roadmap-duration">Week 6-9</span>
+                    </div>
+                    <p>Build professional backends. Choose FastAPI for lightweight asynchronous APIs, or Django for full-featured, database-driven server architectures.</p>
+                    <div class="roadmap-tech">
+                      <span class="tech-pill">FastAPI</span>
+                      <span class="tech-pill">Django</span>
+                      <span class="tech-pill">Pydantic</span>
+                      <span class="tech-pill">REST APIs</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="roadmap-step">
+                  <div class="roadmap-dot">○</div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-header">
+                      <h3 class="roadmap-title">Phase 4: Async Programming & Task Queues</h3>
+                      <span class="roadmap-duration">Week 10-11</span>
+                    </div>
+                    <p>Optimize application execution speed using Python asyncio. Implement background worker pools and caching systems for long-running jobs.</p>
+                    <div class="roadmap-tech">
+                      <span class="tech-pill">asyncio</span>
+                      <span class="tech-pill">Celery</span>
+                      <span class="tech-pill">Redis</span>
+                      <span class="tech-pill">Background Jobs</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="roadmap-step">
+                  <div class="roadmap-dot">○</div>
+                  <div class="roadmap-content">
+                    <div class="roadmap-header">
+                      <h3 class="roadmap-title">Phase 5: Containerization, Testing & Deployment</h3>
+                      <span class="roadmap-duration">Week 12-14</span>
+                    </div>
+                    <p>Write robust unit tests with pytest. Package your web services in Docker containers, build automated GitHub Actions pipelines, and deploy to cloud platforms.</p>
+                    <div class="roadmap-tech">
+                      <span class="tech-pill">Docker</span>
+                      <span class="tech-pill">pytest</span>
+                      <span class="tech-pill">GitHub Actions</span>
+                      <span class="tech-pill">AWS / Render</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Career/Interview Roadmaps -->
+            <div class="tab-content" id="career-roadmaps">
+              <h2>🗺️ Interview & Career Prep Roadmaps</h2>
+              <p style="margin-bottom: 24px;">Tailored learning roadmaps mapping out requirements for popular engineering interview profiles.</p>
+              
+              <div class="roadmaps-grid">
+                <div class="glass-card resource-card">
+                  <h3>🎯 Frontend Developer Roadmap</h3>
+                  <ul class="checklist-list">
+                    <li><strong>HTML5 & CSS3:</strong> Semantic structure, flexbox, CSS Grid, responsive design layout.</li>
+                    <li><strong>JavaScript (ES6+):</strong> Async/await, scoping, closures, promises, DOM API.</li>
+                    <li><strong>Framework Mastery:</strong> React, Vue, or Next.js, including lifecycle/hooks.</li>
+                    <li><strong>State Management:</strong> Context API, Redux Toolkit, or Zustand.</li>
+                    <li><strong>Performance:</strong> Code-splitting, lazy loading, image optimizations.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>⚙️ Backend Developer Roadmap</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Language Ecosystem:</strong> Python (FastAPI), Node.js (Express), or Java (Spring Boot).</li>
+                    <li><strong>API Architecture:</strong> REST standards, GraphQL, API Gateways, validation.</li>
+                    <li><strong>Databases:</strong> PostgreSQL/MySQL, Redis caching, schema migrations.</li>
+                    <li><strong>System Design:</strong> Load balancing, rate limiters, message queues.</li>
+                    <li><strong>Infrastructure:</strong> Docker containers, basic AWS (S3, EC2), CI/CD.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>🧠 Data Structures & Algorithms Roadmap</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Core Arrays & Hashing:</strong> Time complexities, custom maps, hash code logic.</li>
+                    <li><strong>Linear Iteration:</strong> Two-pointers, sliding window patterns.</li>
+                    <li><strong>Graph & Tree Search:</strong> DFS, BFS, binary search trees, recursion.</li>
+                    <li><strong>Backtracking:</strong> Recursive permutations, backtracking constraints.</li>
+                    <li><strong>Dynamic Programming:</strong> Memoization and tabular optimization.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Resume Guide -->
+            <div class="tab-content" id="resume-guide">
+              <h2>📝 Resume Writing Guide & Checklist</h2>
+              <p style="margin-bottom: 24px;">An actionable blueprint to optimize your resume score and bypass automated ATS screening filters.</p>
+              
+              <div class="guides-grid">
+                <div class="glass-card resource-card">
+                  <h3>💎 Structure Checklist</h3>
+                  <ul class="checklist-list">
+                    <li><strong>One Page Constraint:</strong> Fit your content strictly into one single page.</li>
+                    <li><strong>Contact Info:</strong> Include Email, Phone, GitHub, LinkedIn, and City/State.</li>
+                    <li><strong>Technical Skills:</strong> Group skills logically (Languages, Frameworks, Databases).</li>
+                    <li><strong>Experience Details:</strong> Reverse chronological order. Focus on achievements.</li>
+                    <li><strong>Section Headings:</strong> Use standard terms: "Experience", "Skills", "Projects".</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>🤖 ATS Optimization Rules</h3>
+                  <ul class="checklist-list">
+                    <li><strong>File Formats:</strong> Export only as standard PDF or DOCX format.</li>
+                    <li><strong>Layout Simplicity:</strong> Avoid multi-column layouts, charts, and graphics.</li>
+                    <li><strong>Keyword Matching:</strong> Infuse core technical terms matching the job posting.</li>
+                    <li><strong>Font Selection:</strong> Use clean, standard sans-serif fonts (Inter, Arial, Roboto).</li>
+                    <li><strong>Bullets over Tables:</strong> Never place skills or projects inside layout tables.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>📈 Impact & Action Verbs</h3>
+                  <p style="font-size: 0.9rem; margin-bottom: 16px;">Structure bullets using the **Google XYZ formula**: <em>"Accomplished [X], as measured by [Y], by doing [Z]"</em>.</p>
+                  <h4 style="font-size:0.9rem;margin-bottom:8px;color:var(--primary-light);">Powerful Action Verbs:</h4>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <span class="tech-pill">Built</span>
+                    <span class="tech-pill">Optimized</span>
+                    <span class="tech-pill">Engineered</span>
+                    <span class="tech-pill">Spearheaded</span>
+                    <span class="tech-pill">Implemented</span>
+                    <span class="tech-pill">Streamlined</span>
+                    <span class="tech-pill">Redesigned</span>
+                    <span class="tech-pill">Deployed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 4: GitHub Guide -->
+            <div class="tab-content" id="github-guide">
+              <h2>🐙 GitHub Profile Optimization Guide</h2>
+              <p style="margin-bottom: 24px;">Learn how to leverage GitHub as a dynamic developer portfolio to capture engineering recruiter interest.</p>
+              
+              <div class="guides-grid">
+                <div class="glass-card resource-card">
+                  <h3>✨ Profile README Setup</h3>
+                  <ul class="checklist-list">
+                    <li>Create a public repository matching your exact account username.</li>
+                    <li>Initialize with a README.md to display content on your profile page.</li>
+                    <li>State who you are, what technologies you practice, and what you are building.</li>
+                    <li>Integrate visual badges for your tech stack using Shields.io.</li>
+                    <li>Include a section listing your active contact links.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>⚙️ Repository Cleanliness</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Descriptive READMEs:</strong> Detail installation steps, architectures, and demo URLs.</li>
+                    <li><strong>GIFs & Mockups:</strong> Show live visual demonstrations of front-end components.</li>
+                    <li><strong>Commit Discipline:</strong> Make small, meaningful commits instead of one large upload.</li>
+                    <li><strong>Repository Metadata:</strong> Add descriptions, topics, and links to your repo headers.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>📌 Pinning Projects</h3>
+                  <ul class="checklist-list">
+                    <li>Select and pin up to 6 repositories on your front dashboard.</li>
+                    <li>Avoid pinning basic tutorial code or starter repository templates.</li>
+                    <li>Prioritize functional full-stack projects showing database/API integrations.</li>
+                    <li>Ensure repositories are public and contain clean code blocks.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 5: Project Ideas -->
+            <div class="tab-content" id="project-ideas">
+              <h2>💡 Curated Portfolio Project Ideas</h2>
+              <p style="margin-bottom: 24px;">Incorporate these portfolio suggestions to validate your technical stack knowledge.</p>
+              
+              <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="glass-card project-card">
+                  <div>
+                    <span class="project-badge easy">Beginner</span>
+                    <h3>Weather Analytics Dashboard</h3>
+                    <p class="project-desc">A responsive dashboard displaying weekly forecasts by pulling weather APIs, featuring custom styling, dark mode, and location query search parameters.</p>
+                  </div>
+                  <div class="roadmap-tech">
+                    <span class="tech-pill">HTML5</span>
+                    <span class="tech-pill">Vanilla CSS</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">Fetch API</span>
+                  </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card project-card">
+                  <div>
+                    <span class="project-badge medium">Intermediate</span>
+                    <h3>Real-time Chat Application</h3>
+                    <p class="project-desc">Create collaborative chatrooms. Features room code sharing, instant delivery using WebSockets, persistent message histories, and online user listings.</p>
+                  </div>
+                  <div class="roadmap-tech">
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">Express</span>
+                    <span class="tech-pill">WebSockets</span>
+                    <span class="tech-pill">MongoDB</span>
+                  </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card project-card">
+                  <div>
+                    <span class="project-badge hard">Advanced</span>
+                    <h3>AI Resume Analyzer SaaS</h3>
+                    <p class="project-desc">Upload files, extract skills and parse text, run analysis utilizing custom scoring systems, compile suggestion lists, and chart scores over visual panels.</p>
+                  </div>
+                  <div class="roadmap-tech">
+                    <span class="tech-pill">React</span>
+                    <span class="tech-pill">FastAPI</span>
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">Chart.js</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 6: Coding Tips -->
+            <div class="tab-content" id="coding-tips">
+              <h2>⌨️ Coding Interview Execution Tips</h2>
+              <p style="margin-bottom: 24px;">Strategic, step-by-step techniques to structure your approach during real-time technical rounds.</p>
+              
+              <div class="guides-grid">
+                <div class="glass-card resource-card">
+                  <h3>🧠 Phase 1: Clarification</h3>
+                  <ul class="tips-list">
+                    <li><strong>Ask Questions:</strong> Clarify inputs/outputs and verify edge cases immediately.</li>
+                    <li><strong>Constraints:</strong> Ask about performance constraints (e.g. array length, values).</li>
+                    <li><strong>Diagramming:</strong> Sketch a simple logic diagram to map steps before typing.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>💻 Phase 2: Implementation</h3>
+                  <ul class="tips-list">
+                    <li><strong>Think Out Loud:</strong> Consistently narrate your reasoning to the interviewer.</li>
+                    <li><strong>Brute Force:</strong> Present a brute force method, then suggest optimization pathing.</li>
+                    <li><strong>Clean Naming:</strong> Avoid single letter variables. Write clean methods.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>📈 Phase 3: Complexity & Dry Run</h3>
+                  <ul class="tips-list">
+                    <li><strong>Dry Run Case:</strong> Manually trace a basic example step-by-step through variables.</li>
+                    <li><strong>Big O Analysis:</strong> Define exact Time and Space complexities for your solution.</li>
+                    <li><strong>Optimizations:</strong> Discuss what caching or restructuring might optimize limits.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 7: Daily Motivation -->
+            <div class="tab-content" id="motivation">
+              <h2>🔥 Daily Motivation & Focus</h2>
+              <p style="margin-bottom: 24px;">Keep your momentum high on your learning journey. Practice daily, compile streak records, and persist.</p>
+              
+              <div class="motivation-split">
+                <!-- Quote panel -->
+                <div class="glass-card motivation-quote" style="height:fit-content; margin-bottom:0;">
+                  <div class="quote-icon" style="font-size:2.5rem;margin-bottom:12px;">💬</div>
+                  <p class="quote-text" id="motivation-quote" style="font-size:1.2rem;font-weight:500;line-height:1.6;margin-bottom:16px;">"The only way to do great work is to love what you do."</p>
+                  <p class="quote-author" id="motivation-author" style="font-weight:600;color:var(--primary-light);">— Steve Jobs</p>
+                  <button id="new-quote" class="btn btn-secondary btn-sm" style="margin-top: 24px;">New Quote →</button>
+                </div>
+
+                <!-- Random Coding tip card -->
+                <div class="glass-card tip-generator" style="height:fit-content; margin-bottom:0;">
+                  <h3>💡 Interactive Coding Tip</h3>
+                  <p style="font-size:0.875rem;margin-bottom:16px;">Generate advice on design structures or interview habits.</p>
+                  <div class="tip-display" id="tip-display" style="padding:16px;background:var(--bg-secondary);border:1px solid var(--border-glass);border-radius:var(--radius-sm);font-size:0.9rem;font-style:italic;line-height:1.5;margin-bottom:16px;">Click generate for a quick coding tip!</div>
+                  <button id="generate-tip" class="btn btn-primary btn-sm" style="width:100%;">Generate Tip →</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script>
+    const CodingTips = [
+      "Use meaningful variable names — code is read more often than it's written.",
+      "Always handle edge cases: empty arrays, null values, single elements.",
+      "Learn Big O notation — interviewers always ask about time and space complexity.",
+      "Practice explaining your code out loud before the actual interview.",
+      "Hash maps are your best friend for O(1) lookups in interview problems.",
+      "Draw diagrams before coding — visualize the problem on paper first.",
+      "Master one programming language deeply rather than knowing many superficially.",
+      "Review system design basics even for junior roles — it shows initiative."
+    ];
+
+    function showQuote() {
+      const quotes = App.getMotivationalQuotes();
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById('motivation-quote').textContent = `"${quote.text}"`;
+      document.getElementById('motivation-author').textContent = `— ${quote.author}`;
+    }
+
+    function showTip() {
+      document.getElementById('tip-display').textContent = CodingTips[Math.floor(Math.random() * CodingTips.length)];
+    }
+
+    // Handles Resources tab switching
+    function initTabs() {
+      const buttons = document.querySelectorAll('.resource-tab-btn');
+      const tabs = document.querySelectorAll('.tab-content');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          tabs.forEach(t => t.classList.remove('active'));
+
+          btn.classList.add('active');
+          const target = btn.dataset.tab;
+          document.getElementById(target)?.classList.add('active');
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+
+      const daily = App.getDailyQuote();
+      document.getElementById('motivation-quote').textContent = `"${daily.text}"`;
+      document.getElementById('motivation-author').textContent = `— ${daily.author}`;
+
+      document.getElementById('new-quote').addEventListener('click', showQuote);
+      document.getElementById('generate-tip').addEventListener('click', showTip);
+      showTip();
+    });
+  </script>
+</body>
+</html>

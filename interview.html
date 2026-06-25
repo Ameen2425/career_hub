@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="62+ interview questions across Python, Java, JavaScript, HTML/CSS, SQL, Aptitude, and HR.">
+  <title>Interview Hub | CareerLaunch AI</title>
+  <script src="js/authentication.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/interview.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Loading Interview Hub...</p>
+  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <aside id="sidebar" class="sidebar">
+      <a href="index.html" class="sidebar-brand">
+        <div class="sidebar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Dashboard</a>
+        <a href="interview.html" class="sidebar-link"><span class="sidebar-link-icon">🎯</span> Interview Hub</a>
+        <a href="quiz.html" class="sidebar-link"><span class="sidebar-link-icon">🧠</span> Mock Quiz</a>
+        <a href="resume-analyzer.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span> Resume Analyzer</a>
+        <a href="resources.html" class="sidebar-link"><span class="sidebar-link-icon">📚</span> Resources</a>
+        <a href="profile.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profile</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="theme-toggle-btn theme-toggle" style="width:100%;" aria-label="Toggle theme">☀️</button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-header">
+        <div class="app-header-left">
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+          <div class="app-header-title">
+            <h1>Interview Preparation Hub</h1>
+            <p>Search, filter, and master <span id="question-count">62</span> curated questions</p>
+          </div>
+        </div>
+        <a href="quiz.html" class="btn btn-primary btn-sm">Take Quiz →</a>
+      </header>
+
+      <main>
+        <div class="app-content">
+          <div class="interview-stats">
+            <div class="interview-stat glass-card">
+              <div class="interview-stat-value">62+</div>
+              <div class="interview-stat-label">Total Questions</div>
+            </div>
+            <div class="interview-stat glass-card">
+              <div class="interview-stat-value">8</div>
+              <div class="interview-stat-label">Categories</div>
+            </div>
+            <div class="interview-stat glass-card">
+              <div class="interview-stat-value" id="favorites-count">0</div>
+              <div class="interview-stat-label">Favorites Saved</div>
+            </div>
+          </div>
+
+          <div class="daily-widget-inline">
+            <div class="glass-card">
+              <div>
+                <div class="daily-label">💡 Question of the Day</div>
+                <div class="daily-question" id="daily-question-text">Loading...</div>
+              </div>
+              <a href="quiz.html" class="btn btn-secondary btn-sm">Test Yourself →</a>
+            </div>
+          </div>
+
+          <div class="view-tabs">
+            <button class="view-tab active" data-view="all">All Questions</button>
+            <button class="view-tab" data-view="favorites">❤️ Favorites</button>
+          </div>
+
+          <div class="toolbar">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="search-input" placeholder="Search questions, answers, categories...">
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Filter by Category</h4>
+            <div class="filter-tags">
+              <button class="filter-tag active" data-category="all">All</button>
+              <button class="filter-tag" data-category="python">Python</button>
+              <button class="filter-tag" data-category="java">Java</button>
+              <button class="filter-tag" data-category="javascript">JavaScript</button>
+              <button class="filter-tag" data-category="html">HTML</button>
+              <button class="filter-tag" data-category="css">CSS</button>
+              <button class="filter-tag" data-category="sql">SQL</button>
+              <button class="filter-tag" data-category="aptitude">Aptitude</button>
+              <button class="filter-tag" data-category="hr">HR</button>
+            </div>
+          </div>
+
+          <div id="questions-list" class="questions-list"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/authentication.js"></script>
+  <script src="js/interview.js"></script>
+</body>
+</html>

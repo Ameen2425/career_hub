@@ -1,0 +1,254 @@
+/* CareerLaunch AI - Resume Analyzer Styles */
+
+.resume-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.upload-section {
+  position: sticky;
+  top: 100px;
+}
+
+.dropzone {
+  border: 2px dashed var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 48px 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--bg-glass);
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.dropzone-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.dropzone h3 {
+  margin-bottom: 8px;
+}
+
+.dropzone p {
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.dropzone-formats {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.resume-preview {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.preview-icon {
+  font-size: 3rem;
+}
+
+.preview-details h4 {
+  margin-bottom: 4px;
+}
+
+.preview-details p {
+  font-size: 0.8125rem;
+}
+
+.preview-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.analytics-card {
+  padding: 24px;
+  text-align: center;
+}
+
+.analytics-card-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.analytics-card-label {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.ats-chart-wrap {
+  position: relative;
+  height: 180px;
+  width: 180px;
+  margin: 0 auto 16px;
+}
+
+.ats-score-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ats-score-center span:first-child {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.ats-score-center span:last-child {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.score-progress-section {
+  margin-bottom: 32px;
+}
+
+.score-progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.score-progress-track {
+  height: 12px;
+  background: var(--bg-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.score-progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--gradient-hero);
+  border-radius: 999px;
+  transition: width 1.5s ease;
+}
+
+.skill-bar-item {
+  margin-bottom: 16px;
+}
+
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+}
+
+.skill-bar-track {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--gradient-hero);
+  border-radius: 999px;
+  transition: width 1s ease;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.analysis-panel {
+  padding: 24px;
+}
+
+.analysis-panel h4 {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.keyword-tag {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.keyword-tag.missing {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.analysis-list {
+  list-style: none;
+}
+
+.analysis-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-glass);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 8px;
+}
+
+.analysis-list li::before {
+  content: '•';
+  color: var(--primary-light);
+}
+
+.analysis-list li:last-child {
+  border-bottom: none;
+}
+
+.radar-chart-wrap {
+  height: 280px;
+  margin-top: 16px;
+}
+
+@media (max-width: 1024px) {
+  .resume-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .upload-section {
+    position: static;
+  }
+
+  .analysis-grid,
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}

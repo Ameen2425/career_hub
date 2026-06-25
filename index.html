@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareerLaunch AI - All-in-one career preparation platform with interview prep, AI resume analyzer, and career learning resources.">
+  <meta name="keywords" content="career preparation, interview questions, resume analyzer, learning roadmaps, coding tips, mock quiz">
+  <title>CareerLaunch AI | Launch Your Dream Career</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader"></div>
+    <p class="loader-text">Launching CareerLaunch AI...</p>
+  </div>
+
+  <nav class="navbar landing-nav">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-brand">
+        <div class="navbar-brand-icon">🚀</div>
+        <span>CareerLaunch AI</span>
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#modules" class="nav-link">Modules</a></li>
+        <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="resources.html" class="nav-link">Resources</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <a href="dashboard.html" class="btn btn-primary btn-sm">Open Dashboard →</a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="landing-hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="container">
+        <div class="hero-badge"><span>✨</span> Premium Career Preparation Platform</div>
+        <h1>Launch Your Career with <span>AI-Powered</span> Preparation</h1>
+        <p class="hero-description">
+          Master interviews, optimize your resume, and access curated career resources —
+          all in one beautiful platform built for students, freshers, and professionals.
+        </p>
+        <div class="hero-actions">
+          <a href="dashboard.html" class="btn btn-primary">Get Started Free →</a>
+          <a href="interview.html" class="btn btn-secondary">Browse Questions</a>
+        </div>
+
+        <div class="landing-stats">
+          <div class="landing-stat glass-card">
+            <div class="landing-stat-value">62+</div>
+            <div class="landing-stat-label">Interview Questions</div>
+          </div>
+          <div class="landing-stat glass-card">
+            <div class="landing-stat-value">30</div>
+            <div class="landing-stat-label">MCQ Quiz Questions</div>
+          </div>
+          <div class="landing-stat glass-card">
+            <div class="landing-stat-value">3</div>
+            <div class="landing-stat-label">Powerful Modules</div>
+          </div>
+          <div class="landing-stat glass-card">
+            <div class="landing-stat-value">100%</div>
+            <div class="landing-stat-label">Free & Open Source</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Why CareerLaunch AI</span>
+          <h2>Everything You Need to Land Your Dream Job</h2>
+          <p>A complete career toolkit designed with the polish of modern SaaS products like Notion and Linear.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card glass-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Interview Preparation</h3>
+            <p>62+ curated questions across Python, Java, JavaScript, HTML/CSS, SQL, Aptitude, and HR — with search, filters, and favorites.</p>
+            <a href="interview.html" class="feature-link">Explore Questions →</a>
+          </div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">📄</div>
+            <h3>AI Resume Analyzer</h3>
+            <p>Upload your resume for ATS scoring, skills analysis, keyword gaps, and actionable improvement suggestions.</p>
+            <a href="resume-analyzer.html" class="feature-link">Analyze Resume →</a>
+          </div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">📚</div>
+            <h3>Career Resources Hub</h3>
+            <p>Access structured learning roadmaps, resume guides, GitHub profile checklists, project ideas, and coding tips.</p>
+            <a href="resources.html" class="feature-link">Explore Resources →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules" class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Platform Modules</span>
+          <h2>Three Modules, One Platform</h2>
+        </div>
+        <div class="landing-modules">
+          <div class="module-card glass-card">
+            <div class="module-number">Module 01</div>
+            <h3>Interview Preparation Hub</h3>
+            <p>Comprehensive question bank with mock quizzes, timer, scoring, and performance analytics.</p>
+            <ul class="module-features">
+              <li>Search & filter by category</li>
+              <li>Difficulty levels & favorites</li>
+              <li>Timed MCQ mock quizzes</li>
+              <li>Quiz history & analytics</li>
+            </ul>
+            <a href="quiz.html" class="btn btn-secondary btn-sm">Start Quiz →</a>
+          </div>
+          <div class="module-card glass-card">
+            <div class="module-number">Module 02</div>
+            <h3>AI Resume Analyzer</h3>
+            <p>Professional resume analysis UI with ATS scoring and optimization insights.</p>
+            <ul class="module-features">
+              <li>Drag & drop upload</li>
+              <li>ATS score visualization</li>
+              <li>Skills match analysis</li>
+              <li>Improvement suggestions</li>
+            </ul>
+            <a href="resume-analyzer.html" class="btn btn-secondary btn-sm">Upload Resume →</a>
+          </div>
+          <div class="module-card glass-card">
+            <div class="module-number">Module 03</div>
+            <h3>Career Resources Hub</h3>
+            <p>Accelerate your growth with comprehensive roadmaps, project ideas, and actionable guides.</p>
+            <ul class="module-features">
+              <li>Python & interview roadmaps</li>
+              <li>Resume & GitHub guides</li>
+              <li>Curated project ideas</li>
+              <li>Daily motivation & tips</li>
+            </ul>
+            <a href="resources.html" class="btn btn-secondary btn-sm">Explore Guides →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card glass-card">
+          <h2>Ready to Launch Your Career?</h2>
+          <p>Join thousands of job seekers preparing smarter with CareerLaunch AI.</p>
+          <a href="dashboard.html" class="btn btn-primary">Open Dashboard →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">
+            <div class="navbar-brand-icon">🚀</div>
+            <span>CareerLaunch AI</span>
+          </a>
+          <p>Your all-in-one career preparation platform. Built with HTML, CSS, and JavaScript.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Platform</h4>
+          <ul class="footer-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="interview.html">Interview Hub</a></li>
+            <li><a href="resume-analyzer.html">Resume Analyzer</a></li>
+            <li><a href="resources.html">Resources Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Learn</h4>
+          <ul class="footer-links">
+            <li><a href="quiz.html">Mock Quiz</a></li>
+            <li><a href="resources.html">Resources</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Connect</h4>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+            <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CareerLaunch AI. All rights reserved.</p>
+        <p>Deploy on GitHub Pages • No backend required</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
