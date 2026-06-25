@@ -1054,6 +1054,11 @@ main {
   border-color: var(--primary);
 }
 
+select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .score-circle {
   width: 160px;
   height: 160px;
