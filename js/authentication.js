@@ -34,7 +34,7 @@
   }
 })();
 
-const Auth = {
+var Auth = {
   USERS_KEY: 'cla_users',
   SESSION_USER_KEY: 'cla_session_user',
   SESSION_START_KEY: 'cla_session_start',

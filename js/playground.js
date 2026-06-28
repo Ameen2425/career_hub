@@ -129,10 +129,8 @@ const CodingPlayground = {
     const js = document.getElementById('js-code').value;
 
     const iframe = document.getElementById('preview-iframe');
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-    iframeDoc.open();
-    iframeDoc.write(`
+    iframe.srcdoc = `
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -153,8 +151,7 @@ const CodingPlayground = {
         <\/script>
       </body>
       </html>
-    `);
-    iframeDoc.close();
+    `;
 
     // Turn green active preview dot
     const dot = document.getElementById('preview-status-dot');

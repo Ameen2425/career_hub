@@ -99,8 +99,12 @@
     justify-content: center;
   }
 
+  .category-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+
   .interview-stats {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     gap: 10px;
   }
 
@@ -118,8 +122,12 @@
 }
 
 @media (max-width: 480px) {
+  .category-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
   .interview-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .quiz-question-text {

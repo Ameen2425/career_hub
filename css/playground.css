@@ -2,7 +2,7 @@
 
 .playground-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
   height: calc(100vh - var(--navbar-height) - 100px);
   min-height: 550px;
@@ -10,7 +10,7 @@
 
 @media (max-width: 992px) {
   .playground-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     height: auto;
   }
 }

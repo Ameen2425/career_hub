@@ -179,7 +179,7 @@
 
 @media (max-width: 1024px) {
   .dashboard-charts-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .dashboard-chart-card.full-width {
     grid-column: span 1;
@@ -198,19 +198,19 @@
   }
 
   .quick-actions {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
 
   .dash-stats-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .dash-stats-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .dash-stat-card {

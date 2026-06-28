@@ -17,7 +17,7 @@ const LearningRoadmaps = {
           desc: "Understand types, loops, lists/dicts, functions, scope, modules, and PEP 8 guidelines.",
           links: [
             { text: "Python Official Docs", url: "https://docs.python.org/3/" },
-            { text: "CareerLaunch Coding Tips", url: "resources.html" }
+            { text: "CareerLaunch Coding Tips", url: "resources.html?tab=coding-tips" }
           ]
         },
         {
@@ -74,7 +74,7 @@ const LearningRoadmaps = {
           title: "DOM Manipulation & ES6+ Javascript",
           desc: "Understand Event listeners, arrow functions, template literals, array map/filter/reduce, and closures.",
           links: [
-            { text: "JS Reference Guide", url: "resources.html" }
+            { text: "JS Reference Guide", url: "resources.html?tab=js-reference" }
           ]
         },
         {
@@ -122,7 +122,7 @@ const LearningRoadmaps = {
           title: "Database Modeling (SQL & NoSQL)",
           desc: "Design robust relational schemas in PostgreSQL/MySQL and document stores in MongoDB.",
           links: [
-            { text: "SQL Cheat Sheets", url: "resources.html" }
+            { text: "SQL Cheat Sheets", url: "resources.html?tab=career-roadmaps" }
           ]
         },
         {
@@ -210,7 +210,7 @@ const LearningRoadmaps = {
           title: "Relational Theory & DDL/DML",
           desc: "Understand relational mathematics, constraints (Primary Key, Foreign Key, Check), and basic CRUD statements.",
           links: [
-            { text: "SQL Tutorial", url: "resources.html" }
+            { text: "SQL Tutorial", url: "resources.html?tab=career-roadmaps" }
           ]
         },
         {

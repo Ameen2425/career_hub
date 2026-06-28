@@ -1585,15 +1585,15 @@ select option {
 /* --- Responsive --- */
 @media (max-width: 1024px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .charts-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .landing-modules {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1659,27 +1659,27 @@ select option {
   }
 
   .landing-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 12px;
   }
 
   .features-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .landing-modules {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   /* --- Footer --- */
   .footer-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
   }
 
   /* --- Quiz --- */
   .results-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .quiz-navigation {
@@ -1697,7 +1697,7 @@ select option {
 
   /* --- Interview Hub --- */
   .interview-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
 
@@ -1764,7 +1764,7 @@ select option {
   }
 
   .landing-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .landing-stat-value {
@@ -1935,6 +1935,7 @@ select option {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .app-main main {
@@ -2172,7 +2173,7 @@ body.page-loaded {
   }
 
   .landing-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2186,7 +2187,7 @@ body.page-loaded {
   }
 
   .landing-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   /* Sidebar overlay fixes for mobile */
@@ -2471,7 +2472,7 @@ body.page-loaded {
 
 @media (max-width: 1024px) {
   .profile-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2552,4 +2553,206 @@ body.page-loaded {
 .achievement-status.locked-badge {
   background: rgba(100, 116, 139, 0.15);
   color: var(--text-muted);
+}
+
+/* ============================================
+   COMPREHENSIVE MOBILE RESPONSIVENESS POLISH
+   ============================================ */
+
+/* Global box safety for all grid/flex children */
+* {
+  box-sizing: border-box;
+}
+
+/* Prevent images and embeds from overflowing */
+img, video, iframe, canvas, svg {
+  max-width: 100%;
+}
+
+/* All tables scroll horizontally on small screens */
+table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  /* --- General Layout --- */
+  .glass-card {
+    padding: 16px;
+  }
+
+  /* --- Toolbar / Filter bars --- */
+  .toolbar,
+  .filter-bar,
+  .controls-bar,
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .toolbar input,
+  .toolbar select,
+  .filter-bar input,
+  .filter-bar select {
+    width: 100%;
+  }
+
+  /* --- Buttons --- */
+  .btn-group {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* --- Cards with side-by-side layout --- */
+  .card-row,
+  .card-flex {
+    flex-direction: column;
+  }
+
+  /* --- Tables --- */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* --- Section headers --- */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* --- Tab bars --- */
+  .tab-bar,
+  .view-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* --- Modals / dialogs --- */
+  .modal-overlay .modal-container,
+  .modal-overlay .modal-content {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    margin: 12px;
+    padding: 20px 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* --- Daily question widget --- */
+  .daily-widget-inline .glass-card {
+    flex-direction: column;
+  }
+
+  /* --- Quiz option buttons --- */
+  .option-btn {
+    padding: 12px 14px;
+    font-size: 0.875rem;
+  }
+
+  /* --- Score badges --- */
+  .score-badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+  }
+
+  /* --- Profile grid badges row --- */
+  .badges-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* --- Resources tab buttons --- */
+  .resource-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .resource-tab-btn {
+    flex: 1 1 auto;
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+  }
+
+  /* --- Resource cards grid --- */
+  .resource-cards-grid,
+  .resources-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  /* --- App content padding --- */
+  .app-content {
+    padding: 12px 10px;
+  }
+
+  /* --- Typography scale --- */
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.05rem; }
+
+  /* --- Glass cards smaller padding --- */
+  .glass-card {
+    padding: 14px 12px;
+    border-radius: var(--radius-md);
+  }
+
+  /* --- Dashboard hero text --- */
+  .dashboard-hero-content h2 {
+    font-size: 1.2rem;
+  }
+
+  /* --- Stat cards single column --- */
+  .dash-stats-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* --- Badges shrink --- */
+  .badges-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* --- Profile stats --- */
+  .profile-stats-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* --- Footer links tighten up --- */
+  .footer-links {
+    gap: 12px;
+  }
+
+  /* --- Notification toast smaller --- */
+  .toast {
+    font-size: 0.8125rem;
+    padding: 10px 14px;
+    max-width: calc(100vw - 24px);
+    left: 12px;
+    right: 12px;
+  }
+
+  /* --- Roadmap selector card full width on tiny screens --- */
+  .roadmap-selector-card {
+    flex: 0 0 calc(100vw - 48px);
+    max-width: calc(100vw - 48px);
+  }
+
+  /* --- Sidebar brand compact --- */
+  .sidebar-brand span {
+    font-size: 1rem;
+  }
+
+  /* --- Planner task row --- */
+  .task-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .task-actions {
+    align-self: flex-end;
+  }
 }

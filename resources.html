@@ -374,6 +374,7 @@
             <div class="resources-tabs">
               <button class="resource-tab-btn active" data-tab="python-roadmap">🐍 Python Roadmap</button>
               <button class="resource-tab-btn" data-tab="career-roadmaps">🗺️ Interview Roadmaps</button>
+              <button class="resource-tab-btn" data-tab="js-reference">🟨 JS Reference Guide</button>
               <button class="resource-tab-btn" data-tab="resume-guide">📝 Resume Guide</button>
               <button class="resource-tab-btn" data-tab="github-guide">🐙 GitHub Profile Guide</button>
               <button class="resource-tab-btn" data-tab="project-ideas">💡 Project Ideas</button>
@@ -510,6 +511,70 @@
                     <li><strong>Graph & Tree Search:</strong> DFS, BFS, binary search trees, recursion.</li>
                     <li><strong>Backtracking:</strong> Recursive permutations, backtracking constraints.</li>
                     <li><strong>Dynamic Programming:</strong> Memoization and tabular optimization.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab: JS Reference Guide -->
+            <div class="tab-content" id="js-reference">
+              <h2>🟨 JavaScript Reference Guide</h2>
+              <p style="margin-bottom: 24px;">Quick reference guide for ES6+ JavaScript core features, DOM manipulation, and asynchronous concepts.</p>
+              
+              <div class="guides-grid">
+                <div class="glass-card resource-card">
+                  <h3>✨ ES6+ Modern Features</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Arrow Functions:</strong> Concise syntax, lexical <code>this</code>.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">const add = (a, b) => a + b;</pre>
+                    </li>
+                    <li><strong>Template Literals:</strong> String interpolation.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">`Hello, ${name}!`</pre>
+                    </li>
+                    <li><strong>Destructuring:</strong> Easily extract object/array values.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">const { name, age } = user;</pre>
+                    </li>
+                    <li><strong>Spread & Rest:</strong> Expand elements or collect arguments.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">const newArr = [...arr1, ...arr2];</pre>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>🔒 Scope & Closures</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Lexical Scope:</strong> Inner functions have access to variables declared in outer scopes.</li>
+                    <li><strong>Closures:</strong> A function that retains access to its outer lexical scope even after the outer function has executed.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">function makeCounter() {
+  let count = 0;
+  return () => ++count;
+}</pre>
+                    </li>
+                    <li><strong>Block Scope:</strong> <code>let</code> and <code>const</code> are block-scoped, while <code>var</code> is function-scoped.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>🖱️ DOM Manipulation</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Selection:</strong> Use <code>querySelector()</code> or <code>querySelectorAll()</code>.</li>
+                    <li><strong>Listeners:</strong> Attach events using <code>addEventListener('click', handler)</code>.</li>
+                    <li><strong>Classes:</strong> Modify classes via <code>element.classList.add('active')</code>.</li>
+                    <li><strong>Creation:</strong> Build nodes via <code>document.createElement('div')</code>.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-card resource-card">
+                  <h3>⏳ Asynchronous JavaScript</h3>
+                  <ul class="checklist-list">
+                    <li><strong>Promises:</strong> Represents async operation state (Pending, Fulfilled, Rejected).</li>
+                    <li><strong>Async / Await:</strong> Write synchronous-looking promise chains.
+                      <pre style="margin-top: 6px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; font-family: monospace; font-size: 0.8rem; overflow-x: auto;">async function getData() {
+  const res = await fetch(url);
+  return res.json();
+}</pre>
+                    </li>
+                    <li><strong>Array Methods:</strong> Master functional array transformations like <code>map()</code>, <code>filter()</code>, and <code>reduce()</code>.</li>
                   </ul>
                 </div>
               </div>
@@ -762,6 +827,16 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       initTabs();
+
+      // Auto-select tab if specified in URL query param
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      if (tabParam) {
+        const targetBtn = document.querySelector(`.resource-tab-btn[data-tab="${tabParam}"]`);
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      }
 
       const daily = App.getDailyQuote();
       document.getElementById('motivation-quote').textContent = `"${daily.text}"`;
